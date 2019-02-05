@@ -1,0 +1,15 @@
+Package: vidente
+Type: Package
+Title: Collection of functions to work with SEER Database
+Version: 0.1
+Date: 2019-02-06
+Author: Marcel Ribeiro Dantas
+Maintainer: Marcel Ribeiro Dantas <marcel.ribeiro-dantas@curie.fr>
+Depends: R (>= 3.1.0), stringr, tidyverse  
+Suggests: 
+Description: vidente contains a set of functions to parse and analyze the
+Surveillance, Epidemiology, and End Results (SEER) program database.
+License: GPL (>= 3)
+NeedsCompilation: no
+URL: http://www.mribeirodantas.me/vidente
+BugReports: http://www.mribeirodantas.me/vidente/bugtracker
