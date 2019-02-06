@@ -27,7 +27,7 @@ Contributions are very welcomed and feel free to reach out by e-mail if you want
 
 ## Maintainer/Authors
 
-* **Marcel Ribeiro Dantas** (marcel.ribeiro-dantas@curie.fr)
+* **Marcel Ribeiro Dantas** (marcel.ribeiro-dantas curie.fr)
 
 ## License
 
