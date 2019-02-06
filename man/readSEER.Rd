@@ -33,5 +33,5 @@ Reads SEER data from one or several SEER ASCII data files
 # I'm interested here in patients with Breast cancer diagnosed
 # between 2012 and 2015
 # Do not run
-# seer_data <- readSEER(paths, c(2012:2015), site="Breast")
+# seer_data <- readSEER(paths, c(2012:2015), primary_site="Breast")
 }
