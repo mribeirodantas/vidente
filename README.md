@@ -31,4 +31,4 @@ Contributions are very welcomed and feel free to reach out by e-mail if you want
 
 ## License
 
-This project is licensed under the General Public License version 2 or any other later released version fo this license. See the [LICENSE](LICENSE) file for details
+This project is licensed under the General Public License version 3 or any other later released version fo this license. See the [LICENSE](LICENSE) file for details
