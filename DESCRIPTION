@@ -5,11 +5,11 @@ Version: 0.1
 Date: 2019-02-06
 Author: Marcel Ribeiro Dantas
 Maintainer: Marcel Ribeiro Dantas <marcel.ribeiro-dantas@curie.fr>
-Depends: R (>= 3.1.0), stringr, tidyverse  
+Depends: R (>= 3.1.0), stringr, crayon, readr, dplyr 
 Suggests: 
-Description: vidente contains a set of functions to parse and analyze the
-Surveillance, Epidemiology, and End Results (SEER) program database.
-License: GPL (>= 3)
+Description: vidente contains a set of functions to parse and analyze the Surveillance, Epidemiology, and End Results (SEER) program database.
+License: GPLv2+ (at LICENSE)
 NeedsCompilation: no
 URL: http://www.mribeirodantas.me/vidente
 BugReports: http://www.mribeirodantas.me/vidente/bugtracker
+RoxygenNote: 6.1.1
