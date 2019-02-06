@@ -8,17 +8,9 @@ vidente has been developed making sure it will be useful to anyone willing to an
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
-
-TODO
-
-```
-Give examples
-```
-
 ### Installing
 
-Download a [version](https://github.com/mribeirodantas/vidente/releases) of vidente, decompress the compressed filed, change into the created directory, and run in your shell:
+Download a [version](https://github.com/mribeirodantas/vidente/releases) of vidente, decompress the compressed file, change into the created directory, and run in your shell:
 ```
 R CMD INSTALL --preclean --no-multiarch --with-keep.source .
 ```
@@ -27,7 +19,7 @@ After that, you should be able to load it in R by typing:
 library(vidente)
 ```
 
-You can also clone this repository and run the two commands above inside the cloned directory.
+You can also clone this repository and run the R command above inside the cloned directory.
 
 ## Contributing
 
