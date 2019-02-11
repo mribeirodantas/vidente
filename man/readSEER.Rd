@@ -4,10 +4,13 @@
 \alias{readSEER}
 \title{Reads SEER data from one or several SEER ASCII data files}
 \usage{
-readSEER(paths, read_dir, year_dx, primary_site)
+readSEER(paths, read_dir = FALSE, year_dx = FALSE,
+  primary_site = FALSE)
 }
 \arguments{
 \item{paths}{A path or paths to SEER ASCII data files}
+
+\item{read_dir}{Read all .TXT files in the directories in the vector passed. If this parameter is missing or FALSE, vidente will only read the TXT you explicitly informed.}
 
 \item{year_dx}{Filter the result to this year of diagnosis (or range of years of diagnosis)}
 

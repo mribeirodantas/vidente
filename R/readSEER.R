@@ -1,6 +1,6 @@
 #' Reads SEER data from one or several SEER ASCII data files
 #' @param paths A path or paths to SEER ASCII data files
-#' @param read_dir Read all .TXT files in the directories in the vector passed. If this parameter is missing, vidente will only read the TXT you explicitly informed.
+#' @param read_dir Read all .TXT files in the directories in the vector passed. If this parameter is missing or FALSE, vidente will only read the TXT you explicitly informed.
 #' @param year_dx Filter the result to this year of diagnosis (or range of years of diagnosis)
 #' @param primary_site Filter the result to this primary site
 #' @return A data frame with all SEER data from the ASCII data files you provided, given the criteria you chose in the parameters.
@@ -22,13 +22,13 @@
 # If you don't use export, users can't see it
 #' @import readr crayon
 #' @export
-readSEER <- function(paths, read_dir, year_dx, primary_site) {
+readSEER <- function(paths, read_dir=FALSE, year_dx=FALSE, primary_site=FALSE) {
   if (missing(paths)) {
     stop("It's impossible to read the files if you supply no path to files.")
   }
   ## read the file with the fixed width positions
   data.df_f <- NULL
-  if (missing(read_dir)) {
+  if (read_dir == FALSE) {
     if (all(endsWith(paths, ".TXT"))) {
       for (path_file in paths) {
         data.df <- readr::read_fwf(path_file, 
@@ -54,13 +54,13 @@ readSEER <- function(paths, read_dir, year_dx, primary_site) {
     }
   }
   # select only those rows that match the chosen site
-  if (missing(primary_site)) {
+  if (primary_site == FALSE) {
     print(paste(cat(crayon::red("Note:"))," Cancer primary site not supplied, including all sites"))
   } else {
     data.df_f <- data.df_f[data.df_f$SITERWHO == siteLookUp(primary_site), ] 
   }
   # select only those rows that match the chosen year of diagnosis (or range of)
-  if (missing(year_dx)) {
+  if (year_dx == FALSE) {
     print(paste(cat(crayon::red("Note:"))," Year of diagnosis not supplied, including all years"))
   } else {
     data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ] 
