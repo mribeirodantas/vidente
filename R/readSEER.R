@@ -1,5 +1,6 @@
 #' Reads SEER data from one or several SEER ASCII data files
 #' @param paths A path or paths to SEER ASCII data files
+#' @param read_dir Read all .TXT files in the directories in the vector passed. If this parameter is missing, vidente will only read the TXT you explicitly informed.
 #' @param year_dx Filter the result to this year of diagnosis (or range of years of diagnosis)
 #' @param primary_site Filter the result to this primary site
 #' @return A data frame with all SEER data from the ASCII data files you provided, given the criteria you chose in the parameters.
@@ -19,22 +20,39 @@
 #' # Do not run
 #' # seer_data <- readSEER(paths, c(2012:2015), primary_site="Breast")
 # If you don't use export, users can't see it
-#' @import readr crayon 
+#' @import readr crayon
 #' @export
-readSEER <- function(paths, year_dx, primary_site) {
+readSEER <- function(paths, read_dir, year_dx, primary_site) {
   if (missing(paths)) {
     stop("It's impossible to read the files if you supply no path to files.")
   }
   ## read the file with the fixed width positions
   data.df_f <- NULL
-  for (path_file in paths) {
-    data.df <- readr::read_fwf(path_file, 
-                               readr::fwf_positions(sas.df$start, sas.df$end, sas.df$col_name)
-                        # , colClasses=c("character","integer","character","integer","character","integer","character",
-                        #              "character","character","character"))
-    )
-    data.df_f <- rbind(data.df_f, data.df)
-  } 
+  if (missing(read_dir)) {
+    if (all(endsWith(paths, ".TXT"))) {
+      for (path_file in paths) {
+        data.df <- readr::read_fwf(path_file, 
+                                   readr::fwf_positions(sas.df$start, sas.df$end, sas.df$col_name)
+                            # , colClasses=c("character","integer","character","integer","character","integer","character",
+                            #              "character","character","character"))
+        )
+        data.df_f <- rbind(data.df_f, data.df)
+      }
+    } else {
+      stop("All the paths in your vector must point to a .TXT file. Check the read_dir parameter if you want to read all text files a directory.")
+    }
+  } else {
+    for (path_file in paths) {
+      for (file in dir(path_file)) {
+        data.df <- readr::read_fwf(paste(path_file, file, sep=""), 
+                                   readr::fwf_positions(sas.df$start, sas.df$end, sas.df$col_name)
+                                   # , colClasses=c("character","integer","character","integer","character","integer","character",
+                                   #              "character","character","character"))
+        )
+        data.df_f <- rbind(data.df_f, data.df)
+      }
+    }
+  }
   # select only those rows that match the chosen site
   if (missing(primary_site)) {
     print(paste(cat(crayon::red("Note:"))," Cancer primary site not supplied, including all sites"))
