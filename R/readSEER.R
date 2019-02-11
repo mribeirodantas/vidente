@@ -22,7 +22,7 @@
 # If you don't use export, users can't see it
 #' @import readr crayon
 #' @export
-readSEER <- function(paths, read_dir=FALSE, year_dx=FALSE, primary_site=FALSE) {
+readSEER <- function(paths, read_dir=FALSE, year_dx, primary_site=FALSE) {
   if (missing(paths)) {
     stop("It's impossible to read the files if you supply no path to files.")
   }
@@ -42,6 +42,9 @@ readSEER <- function(paths, read_dir=FALSE, year_dx=FALSE, primary_site=FALSE) {
       stop("All the paths in your vector must point to a .TXT file. Check the read_dir parameter if you want to read all text files a directory.")
     }
   } else {
+    if (all(endsWith(paths, ".TXT"))) {
+      stop("If read_dir is set to TRUE, your vector must contain directory paths and not file paths.")
+    }  
     for (path_file in paths) {
       for (file in dir(path_file)) {
         data.df <- readr::read_fwf(paste(path_file, file, sep=""), 
@@ -60,7 +63,7 @@ readSEER <- function(paths, read_dir=FALSE, year_dx=FALSE, primary_site=FALSE) {
     data.df_f <- data.df_f[data.df_f$SITERWHO == siteLookUp(primary_site), ] 
   }
   # select only those rows that match the chosen year of diagnosis (or range of)
-  if (year_dx == FALSE) {
+  if (missing(year_dx)) {
     print(paste(cat(crayon::red("Note:"))," Year of diagnosis not supplied, including all years"))
   } else {
     data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ] 
