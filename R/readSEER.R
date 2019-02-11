@@ -68,7 +68,7 @@ siteLookUp <- function(site_name) {
 #' @export
 listPrimarySites <- function() {
   if(!exists("sites_recodes")) {
-    sites_recodes <- readRDS("/home/mribeirodantas/Documentos/PhD data/Breast Cancer Analysis/vidente/sites_recodes.RData")
+    data(sites_recodes)
   }
   cat(crayon::red("# Oral Cavity and Pharynx"))
   print(paste(sites_recodes$sites[1:10], collapse = ", "))
