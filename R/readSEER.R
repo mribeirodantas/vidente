@@ -30,6 +30,9 @@ readSEER <- function(paths, read_dir=FALSE, year_dx, primary_site=FALSE) {
   data.df_f <- NULL
   if (read_dir == FALSE) {
     if (all(endsWith(paths, ".TXT"))) {
+      if (!all(file.exists(paths))) {
+        stop("At least one of the files in your vector does not exist.")
+      } 
       for (path_file in paths) {
         data.df <- readr::read_fwf(path_file, 
                                    readr::fwf_positions(sas.df$start, sas.df$end, sas.df$col_name)
@@ -42,6 +45,9 @@ readSEER <- function(paths, read_dir=FALSE, year_dx, primary_site=FALSE) {
       stop("All the paths in your vector must point to a .TXT file. Check the read_dir parameter if you want to read all text files a directory.")
     }
   } else {
+    if (!all(dir.exists(paths))) {
+      stop("At least one of the directories in your vector does not exist.")
+    } 
     if (all(endsWith(paths, ".TXT"))) {
       stop("If read_dir is set to TRUE, your vector must contain directory paths and not file paths.")
     }  
