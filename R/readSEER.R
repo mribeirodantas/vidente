@@ -196,9 +196,11 @@ listPrimarySites <- function() {
 #   "Miscellaneous",
 #   # Invalid
 #   "Invalid")
+# sites <- stringr::str_to_title(sites)
 # recodes <- c(seq(20010, 20100, 10), seq(21010, 21030, 10), seq(21041, 21049), 21051, 21052, 21060, 21071, 21072, seq(21080, 21130, 10),
 #              22010, 22020, 22030, 22050, 22060, 23000, 24000, 25010, 25020, 26000, seq(27010, 27070, 10), seq(28010, 28040, 10), seq(29010, 29040, 10),
 #              30000, 31010, 31040, 32010, 32020, 33011, 33012, 33041, 33042, 34000, 35011, 35012, 35013, 35021, 35031, 35022, 35023, 35041, 35043,
 #              36010, 36020, 37000, 99999)
 # sites_recodes <- as.data.frame(cbind(sites, recodes), stringsAsFactors = FALSE)
+# setwd('/home/mribeirodantas/dev/vidente/data/')
 # save(sites_recodes, file = "sites_recodes.RData")
