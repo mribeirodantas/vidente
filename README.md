@@ -25,9 +25,13 @@ You can also clone this repository and run the R command above inside the cloned
 
 Contributions are very welcomed and feel free to reach out by e-mail if you want to discuss something with me.
 
-## Maintainer/Authors
+## Maintainer
 
 * **Marcel Ribeiro Dantas** (marcel.ribeiro-dantas curie.fr)
+
+## Authors
+* **Marcel Ribeiro Dantas**
+* **Hervé Isambert**
 
 ## License
 

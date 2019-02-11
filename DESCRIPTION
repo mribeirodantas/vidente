@@ -3,7 +3,7 @@ Type: Package
 Title: Collection of functions to work with SEER Database
 Version: 0.1
 Date: 2019-02-06
-Author: Marcel Ribeiro Dantas
+Author: Marcel Ribeiro Dantas, Hervé Isambert
 Maintainer: Marcel Ribeiro Dantas <marcel.ribeiro-dantas@curie.fr>
 Depends: R (>= 3.1.0), stringr, crayon, readr, dplyr 
 Suggests: 
