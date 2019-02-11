@@ -8,6 +8,7 @@
 #' @import readr dplyr stringr 
 #' @export
 preprocessSEER <- function(file_path) {
+  options(warn=-1)
   sas.raw <- readr::read_lines(file_path)
   sas.df <<- dplyr::tibble(raw = sas.raw) %>% 
     ## remove first few rows by insisting an @ that defines the start index of that field
@@ -24,5 +25,6 @@ preprocessSEER <- function(file_path) {
   
   column_mapping <- sas.df %>% 
     dplyr::select(col_name, col_desc)
+  options(warn=0)
 }
 
