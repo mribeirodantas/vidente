@@ -64,13 +64,13 @@ readSEER <- function(paths, read_dir=FALSE, year_dx, primary_site=FALSE) {
   }
   # select only those rows that match the chosen site
   if (primary_site == FALSE) {
-    print(paste(cat(crayon::red("Note:"))," Cancer primary site not supplied, including all sites"))
+    print(paste(cat(crayon::red("Note:"))," Cancer primary site not supplied, including all sites contained in the files provided."))
   } else {
     data.df_f <- data.df_f[data.df_f$SITERWHO == siteLookUp(primary_site), ] 
   }
   # select only those rows that match the chosen year of diagnosis (or range of)
   if (missing(year_dx)) {
-    print(paste(cat(crayon::red("Note:"))," Year of diagnosis not supplied, including all years"))
+    print(paste(cat(crayon::red("Note:"))," Year of diagnosis not supplied, including all years contained in the files provided."))
   } else {
     data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ] 
   }
