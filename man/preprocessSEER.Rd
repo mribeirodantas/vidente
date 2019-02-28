@@ -4,7 +4,7 @@
 \alias{preprocessSEER}
 \title{Reads a sas instruction file in order to parse SEER ASCII data files}
 \usage{
-preprocessSEER(file_path)
+preprocessSEER(file_path, seerstats = FALSE)
 }
 \arguments{
 \item{file_path}{A path to the SAS file}
