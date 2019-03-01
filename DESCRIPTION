@@ -3,13 +3,20 @@ Type: Package
 Title: Collection of functions to work with SEER Database
 Version: 0.1
 Date: 2019-02-06
-Author: Marcel Ribeiro Dantas, Herve Isambert
-Maintainer: Marcel Ribeiro Dantas <marcel.ribeiro-dantas@curie.fr>
-Depends: R (>= 3.1.0), stringr, crayon, readr, dplyr 
+Authors@R: as.person(c(
+    "Marcel Ribeiro-Dantas <marcel.ribeiro-dantas@curie.fr> [aut, cre]", 
+    "Herve Isambert <herve.isambert@curie.fr> [aut]"
+  ))
+Depends: R (>= 3.1.0)
+Imports: crayon,
+  dplyr,
+  readr,
+  stringr
 Suggests: 
-Description: vidente contains a set of functions to parse and analyze the Surveillance, Epidemiology, and End Results (SEER) program database.
-License: GPLv2+ (at LICENSE)
+Description: vidente contains a set of functions to parse and analyze the
+  Surveillance, Epidemiology, and End Results (SEER) program database.
+License: file LICENSE
 NeedsCompilation: no
-URL: http://www.mribeirodantas.me/vidente
-BugReports: http://www.mribeirodantas.me/vidente/bugtracker
+URL: https://github.com/mribeirodantas/vidente/issues
+BugReports: https://github.com/mribeirodantas/vidente
 RoxygenNote: 6.1.1
