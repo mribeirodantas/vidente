@@ -2,38 +2,44 @@
 % Please edit documentation in R/readSEER.R
 \name{readSEER}
 \alias{readSEER}
-\title{Reads SEER data from one or several SEER ASCII data files}
+\title{Reads SEER data from one (or several) SEER ASCII data files or from text
+  exported from SEER*Stats.}
 \usage{
-readSEER(paths, read_dir = FALSE, year_dx, primary_site = FALSE)
+readSEER(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
+  primary_site = FALSE)
 }
 \arguments{
 \item{paths}{A path or paths to SEER ASCII data files}
 
-\item{read_dir}{Read all .TXT files in the directories in the vector passed. If this parameter is missing or FALSE, vidente will only read the TXT you explicitly informed.}
+\item{read_dir}{Read all .TXT files in the directories in the vector passed.
+If this parameter is missing or FALSE, vidente will only read the TXT you
+explicitly informed.}
 
-\item{year_dx}{Filter the result to this year of diagnosis (or range of years of diagnosis)}
+\item{year_dx}{Filter the result to this year of diagnosis
+(or range of years of diagnosis)}
 
 \item{primary_site}{Filter the result to this primary site}
 }
 \value{
-A data frame with all SEER data from the ASCII data files you provided, given the criteria you chose in the parameters.
+A data frame with all SEER data from the ASCII data files you
+  provided, given the criteria you chose in the parameters.
 }
 \description{
-Reads SEER data from one or several SEER ASCII data files
+Reads SEER data from one (or several) SEER ASCII data files or from text
+  exported from SEER*Stats.
 }
 \examples{
 # You must preprocess a SAS file before, so that readSEER
 # knows the format of your SEER ASCII data files
-# Do not run
-# preprocessSEER("read.seer.research.nov17.sas")
+# preprocessSEER('read.seer.research.nov17.sas')
 
 # Now you can read it
-# Do not run
-# paths = c("/home/user/SEER/yr1973_2015.seer9/BREAST.TXT",
-#           "/home/user/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT")
+paths = c('/home/user/SEER/yr1973_2015.seer9/BREAST.TXT',
+          '/home/user/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')
 
 # I'm interested here in patients with Breast cancer diagnosed
 # between 2012 and 2015
 # Do not run
-# seer_data <- readSEER(paths, c(2012:2015), primary_site="Breast")
+# seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')
+
 }

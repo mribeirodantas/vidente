@@ -1,7 +1,7 @@
 Package: vidente
 Type: Package
 Title: Collection of functions to work with SEER Database
-Version: 0.1
+Version: 0.0.0.9000
 Date: 2019-02-06
 Authors@R: as.person(c(
     "Marcel Ribeiro-Dantas <marcel.ribeiro-dantas@curie.fr> [aut, cre]", 
@@ -19,4 +19,5 @@ License: file LICENSE
 NeedsCompilation: no
 URL: https://github.com/mribeirodantas/vidente/issues
 BugReports: https://github.com/mribeirodantas/vidente
+LazyData: true
 RoxygenNote: 6.1.1
