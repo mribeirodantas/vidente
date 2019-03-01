@@ -20,6 +20,6 @@ Reads a sas instruction file in order to parse SEER ASCII data files
 \examples{
 # You must preprocess a SAS file before reading the data with readSEER
 \dontrun{
-# preprocessSEER("read.seer.research.nov17.sas")
-}
+preprocessSEER("read.seer.research.nov17.sas")}
+
 }

@@ -31,15 +31,18 @@ Reads SEER data from one (or several) SEER ASCII data files or from text
 \examples{
 # You must preprocess a SAS file before, so that readSEER
 # knows the format of your SEER ASCII data files
-# preprocessSEER('read.seer.research.nov17.sas')
+\dontrun{
+preprocessSEER('read.seer.research.nov17.sas')
+}
 
 # Now you can read it
+\dontrun{
 paths = c('/home/user/SEER/yr1973_2015.seer9/BREAST.TXT',
-          '/home/user/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')
+          '/home/user/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')}
 
 # I'm interested here in patients with Breast cancer diagnosed
 # between 2012 and 2015
-# Do not run
-# seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')
+\dontrun{
+# seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')}
 
 }

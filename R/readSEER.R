@@ -13,53 +13,70 @@
 #' @examples
 #' # You must preprocess a SAS file before, so that readSEER
 #' # knows the format of your SEER ASCII data files
-#' # preprocessSEER('read.seer.research.nov17.sas')
+#' \dontrun{
+#' preprocessSEER('read.seer.research.nov17.sas')
+#' }
 #' 
 #' # Now you can read it
+#' \dontrun{
 #' paths = c('/home/user/SEER/yr1973_2015.seer9/BREAST.TXT',
-#'           '/home/user/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')
+#'           '/home/user/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')}
 #' 
 #' # I'm interested here in patients with Breast cancer diagnosed
 #' # between 2012 and 2015
-#' # Do not run
-#' # seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')
+#' \dontrun{
+#' # seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')}
 #' 
 # If you don't use export, users can't see it
 #' @import readr crayon
 #' @export
-readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx, primary_site = FALSE) {
+readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
+                     primary_site = FALSE) {
     if (seerstats == FALSE) {
         if (missing(paths)) {
-            stop("It's impossible to read the files if you supply no path to files.")
+            stop("It's impossible to read the files if you supply no path to
+                 files.")
         }
         ## read the file with the fixed width positions
         data.df_f <- NULL
         if (read_dir == FALSE) {
             if (all(endsWith(paths, ".TXT"))) {
                 if (!all(file.exists(paths))) {
-                  stop("At least one of the files in your vector does not exist.")
+                  stop("At least one of the files in your vector does not
+                       exist.")
                 }
                 for (path_file in paths) {
-                  data.df <- readr::read_fwf(path_file, readr::fwf_positions(sas.df$start, sas.df$end, sas.df$col_name))
-                  # , colClasses=c('character','integer','character','integer','character','integer','character',
+                  data.df <- readr::read_fwf(
+                    path_file, readr::fwf_positions(sas.df$start,
+                                                    sas.df$end,
+                                                    sas.df$col_name))
+                  # , colClasses=c('character','integer','character','integer',
+                  # 'character','integer','character',
                   # 'character','character','character'))
                   data.df_f <- rbind(data.df_f, data.df)
                 }
             } else {
-                stop("All the paths in your vector must point to a .TXT file. Check the read_dir parameter if you want to read all text files a directory.")
+                stop("All the paths in your vector must point to a .TXT file.
+                     Check the read_dir parameter if you want to read all text
+                     files a directory.")
             }
         } else {
             if (!all(dir.exists(paths))) {
-                stop("At least one of the directories in your vector does not exist.")
+                stop("At least one of the directories in your vector does not
+                     exist.")
             }
             if (all(endsWith(paths, ".TXT"))) {
-                stop("If read_dir is set to TRUE, your vector must contain directory paths and not file paths.")
+                stop("If read_dir is set to TRUE, your vector must contain
+                     directory paths and not file paths.")
             }
             for (path_file in paths) {
                 for (file in dir(path_file)) {
-                  data.df <- readr::read_fwf(paste(path_file, file, sep = ""), readr::fwf_positions(sas.df$start, sas.df$end, 
-                    sas.df$col_name))
-                  # , colClasses=c('character','integer','character','integer','character','integer','character',
+                  data.df <- readr::read_fwf(paste(path_file, file, sep = ""),
+                                             readr::fwf_positions(
+                                               sas.df$start, sas.df$end,
+                                               sas.df$col_name))
+                  # , colClasses=c('character','integer','character','integer',
+                  # 'character','integer','character',
                   # 'character','character','character'))
                   data.df_f <- rbind(data.df_f, data.df)
                 }
@@ -67,13 +84,19 @@ readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx, primar
         }
         # select only those rows that match the chosen site
         if (primary_site == FALSE) {
-            print(paste(cat(crayon::red("Note:")), " Cancer primary site not supplied, including all sites contained in the files provided."))
+            print(paste(cat(crayon::red("Note:")), " Cancer primary site not
+                        supplied, including all sites contained in the files
+                        provided."))
         } else {
-            data.df_f <- data.df_f[data.df_f$SITERWHO == siteLookUp(primary_site), ]
+            data.df_f <- data.df_f[
+                          data.df_f$SITERWHO == siteLookUp(primary_site), ]
         }
-        # select only those rows that match the chosen year of diagnosis (or range of)
+        # select only those rows that match the chosen year of diagnosis
+        # (or range of)
         if (missing(year_dx)) {
-            print(paste(cat(crayon::red("Note:")), " Year of diagnosis not supplied, including all years contained in the files provided."))
+            print(paste(cat(crayon::red("Note:")), " Year of diagnosis not
+                        supplied, including all years contained in the files
+                        provided."))
         } else {
             data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ]
         }
@@ -95,7 +118,8 @@ siteLookUp <- function(site_name) {
 }
 
 #' List cancers primary sites that are supported by this package
-#' @return It displays on the screen the cancer primary sites supported by the package
+#' @return It displays on the screen the cancer primary sites supported by the
+#'   package
 #' @export
 listPrimarySites <- function() {
     cat(crayon::red("# Oral Cavity and Pharynx"))
@@ -149,5 +173,3 @@ listPrimarySites <- function() {
     cat(crayon::red("# Miscellaneous and Invalid"))
     print(paste(sites_recodes$sites[81:82], collapse = ", "))
 }
-
-

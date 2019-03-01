@@ -7,7 +7,8 @@
 listPrimarySites()
 }
 \value{
-It displays on the screen the cancer primary sites supported by the package
+It displays on the screen the cancer primary sites supported by the
+  package
 }
 \description{
 List cancers primary sites that are supported by this package
