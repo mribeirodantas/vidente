@@ -41,16 +41,16 @@ readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
         ## read the file with the fixed width positions
         data.df_f <- NULL
         if (read_dir == FALSE) {
-            if (all(endsWith(paths, ".TXT"))) {
-                if (!all(file.exists(paths))) {
+            if (all(endsWith(path, ".TXT"))) {
+                if (!all(file.exists(path))) {
                   stop("At least one of the files in your vector does not
                        exist.")
                 }
                 for (path_file in path) {
                   data.df <- readr::read_fwf(
-                    path_file, readr::fwf_positions(sas.df$start,
-                                                    sas.df$end,
-                                                    sas.df$col_name))
+                    path_file, readr::fwf_positions(instructions[[2]]$start,
+                                                    instructions[[2]]$end,
+                                                    instructions[[2]]$col_name))
                   # , colClasses=c('character','integer','character','integer',
                   # 'character','integer','character',
                   # 'character','character','character'))
@@ -74,8 +74,9 @@ readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
                 for (file in dir(path_file)) {
                   data.df <- readr::read_fwf(paste(path_file, file, sep = ""),
                                              readr::fwf_positions(
-                                               sas.df$start, sas.df$end,
-                                               sas.df$col_name))
+                                               instructions[[2]]$start,
+                                               instructions[[2]]$end,
+                                               instructions[[2]]$col_name))
                   # , colClasses=c('character','integer','character','integer',
                   # 'character','integer','character',
                   # 'character','character','character'))

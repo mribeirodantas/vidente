@@ -11,6 +11,7 @@ Depends: R (>= 3.1.0)
 Imports: crayon,
   dplyr,
   readr,
+  rlang,
   stringr
 Suggests: 
     knitr,

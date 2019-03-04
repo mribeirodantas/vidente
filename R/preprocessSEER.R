@@ -47,12 +47,12 @@ preprocessSEER <- function(file_path, seerstats=FALSE) {
                                                "\\*\\/",
                                                "" )) ) %>%
       # coerce to integers
-      dplyr::mutate_at(dplyr::vars(start, width), dplyr::funs(as.integer)) %>%
+      dplyr::mutate_at(dplyr::vars(.data$start, .data$width), dplyr::funs(as.integer)) %>%
       # calculate the end position
-      dplyr::mutate(end = start + width - 1)
+      dplyr::mutate(end = .data$start + .data$width - 1)
 
     column_mapping <- sas.df %>%
-      dplyr::select(col_name, col_desc)
+      dplyr::select(.data$col_name, .data$col_desc)
     options(warn = 0)
   } else {
     con <- file(file_path, "r")
