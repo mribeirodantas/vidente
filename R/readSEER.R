@@ -15,8 +15,7 @@
 #' @examples
 #' # First preprocess a instruction file
 #' \dontrun{
-#' preprocessSEER('read.seer.research.nov17.sas')
-#' }
+#' instr <- preprocessSEER('read.seer.research.nov17.sas', filetype = 'sas')
 #'
 #' # Now you can read it
 #' paths <- c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
@@ -31,14 +30,13 @@
 #'
 #' @import readr crayon
 #' @export
-readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
-                     primary_site = FALSE) {
-    if (seerstats == FALSE) {
-        if (missing(paths)) {
-            stop("It's impossible to read the files if you supply no path to
-                 files.")
-        }
-        ## read the file with the fixed width positions
+readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
+                     primary_site='') {
+  if (missing(path)) {
+    stop("It's impossible to read the files if you supply no path to files.")
+    }
+    if (instructions[[1]] == 'sas') {
+      ## read the file with the fixed width positions
         data.df_f <- NULL
         if (read_dir == FALSE) {
             if (all(endsWith(path, ".TXT"))) {

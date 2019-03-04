@@ -20,13 +20,14 @@
 #' instr <- preprocessSEER("read.seer.research.nov17.sas", filetype = 'sas')}
 #'
 #' @import readr dplyr stringr crayon
+#' @importFrom rlang .data
 #'
 #' @export
-preprocessSEER <- function(file_path, seerstats=FALSE) {
-  if (seerstats == FALSE) {
+preprocessSEER <- function(file_path, filetype) {
+  if (filetype == 'sas') {
     options(warn = -1)
     sas.raw <- readr::read_lines(file_path)
-    sas.df <<- dplyr::tibble(raw = sas.raw) %>%
+    sas.df <- dplyr::tibble(raw = sas.raw) %>%
       # remove first few rows by insisting an @ that defines the start index
       # of that field
       dplyr::filter(stringr::str_detect(raw, "@")) %>%
@@ -54,7 +55,8 @@ preprocessSEER <- function(file_path, seerstats=FALSE) {
     column_mapping <- sas.df %>%
       dplyr::select(.data$col_name, .data$col_desc)
     options(warn = 0)
-  } else {
+    instructions <- list('sas', sas.df)
+  } else if (filetype == 'dictionary') {
     con <- file(file_path, "r")
     column_labels <- NULL
     while (TRUE) {
@@ -67,6 +69,8 @@ preprocessSEER <- function(file_path, seerstats=FALSE) {
       }
     }
     close(con)
-    column_labels <<- column_labels
+    instructions <- list('dictionary', column_labels)
+  } else {
+    print(paste(cat(crayon::red("Error:")), " Option for filetype parameter not recognized. You must choose either 'sas' or 'dictionary'."))
   }
 }
