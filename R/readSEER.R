@@ -55,18 +55,18 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                   data.df_f <- rbind(data.df_f, data.df)
                 }
             } else {
-                stop("All the paths in your vector must point to a .TXT file.
-                     Check the read_dir parameter if you want to read all text
-                     files a directory.")
+                stop(paste("All the paths in your vector must point to a .TXT",
+                           "file. Check the read_dir parameter if you want to",
+                           "read all text files a directory."))
             }
         } else {
-            if (!all(dir.exists(paths))) {
-                stop("At least one of the directories in your vector does not
-                     exist.")
+            if (!all(dir.exists(path))) {
+                stop(paste("At least one of the directories in your vector ",
+                           "does not exist."))
             }
-            if (all(endsWith(paths, ".TXT"))) {
-                stop("If read_dir is set to TRUE, your vector must contain
-                     directory paths and not file paths.")
+            if (all(endsWith(path, ".TXT"))) {
+                stop(paste("If read_dir is set to TRUE, your vector must ",
+                           "contain directory paths and not file paths."))
             }
             for (path_file in path) {
                 for (file in dir(path_file)) {
