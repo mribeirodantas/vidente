@@ -127,7 +127,9 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
 #' @import stringr utils
 siteLookUp <- function(site_name) {
     site_name <- stringr::str_to_title(site_name)
-    return(subset(sites_recodes, sites == site_name)$recodes)
+    code <- sites_recodes[sites_recodes$sites == site_name, ]$recodes
+    code <- as.integer(as.character(code))
+    return(ifelse(length(code)>0, code, NA))
 }
 
 #' List cancers primary sites that are supported by this package
