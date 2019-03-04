@@ -2,32 +2,32 @@
 #'
 #' @param path A path or a vector with paths to either folder with SEER ASCII
 #'   data files or directly to the file(s).
+#' @param instructions The output variable from the preprocessSEER function
 #' @param read_dir If true, it reads all .TXT files in the directory or
 #'   directories provided in the path parameter. If this parameter is missing
 #'   or FALSE, vidente will only read the TXT you explicitly informed.
 #' @param year_dx Filter the result to this year of diagnosis (or range of
 #'   years of diagnosis)
 #' @param primary_site Filter the result to this primary site
-#'
 #' @return A data frame with all SEER data from the ASCII data files you
 #'   provided, given the criteria you chose in the parameters.
 #'
 #' @examples
-#' # You must preprocess a instruction file before, so that readSEER knows the
-#'   format of your SEER ASCII data files.
+#' # First preprocess a instruction file
 #' \dontrun{
 #' preprocessSEER('read.seer.research.nov17.sas')
 #' }
 #'
 #' # Now you can read it
-#' \dontrun{
-#' paths = c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
-#'           '/home/yourusername/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')}
+#' paths <- c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
+#'           '/home/yourusername/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')
 #'
 #' # I'm interested here in patients with breast cancer diagnosed between 2012
 #' # and 2015
-#' \dontrun{
-#' # seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')}
+#' seer_data <- readSEER(path = paths,
+#'                       instructions = instr,
+#'                       year_dx = c(2012:2015),
+#'                       primary_site = 'Breast')}
 #'
 #' @import readr crayon
 #' @export
@@ -46,7 +46,7 @@ readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
                   stop("At least one of the files in your vector does not
                        exist.")
                 }
-                for (path_file in paths) {
+                for (path_file in path) {
                   data.df <- readr::read_fwf(
                     path_file, readr::fwf_positions(sas.df$start,
                                                     sas.df$end,
@@ -70,7 +70,7 @@ readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
                 stop("If read_dir is set to TRUE, your vector must contain
                      directory paths and not file paths.")
             }
-            for (path_file in paths) {
+            for (path_file in path) {
                 for (file in dir(path_file)) {
                   data.df <- readr::read_fwf(paste(path_file, file, sep = ""),
                                              readr::fwf_positions(
@@ -84,26 +84,39 @@ readSEER <- function(paths, seerstats = FALSE, read_dir = FALSE, year_dx,
             }
         }
         # select only those rows that match the chosen site
-        if (primary_site == FALSE) {
-            print(paste(cat(crayon::red("Note:")), " Cancer primary site not
-                        supplied, including all sites contained in the files
-                        provided."))
+        # THIS SHOULD
+        # BE DONE
+        # AT THE BEGINNING
+        if (primary_site == '') {
+            print(paste(cat(crayon::red("Note:")), paste(" Cancer primary site",
+                                                         " not supplied, ",
+                                                         "including all sites",
+                                                         " contained in the ",
+                                                         "files provided.")))
         } else {
-            data.df_f <- data.df_f[
-                          data.df_f$SITERWHO == siteLookUp(primary_site), ]
+          code <- siteLookUp(primary_site)
+          if (is.na(code)) {
+            stop("Primary site name invalid. Check listPrimarySite()")
+          } else {
+            ata.df_f <- data.df_f[
+                        data.df_f$SITERWHO == code, ]
+          }
         }
         # select only those rows that match the chosen year of diagnosis
         # (or range of)
         if (missing(year_dx)) {
-            print(paste(cat(crayon::red("Note:")), " Year of diagnosis not
-                        supplied, including all years contained in the files
-                        provided."))
+            print(paste(cat(crayon::red("Note:")), paste(" Year of diagnosis ",
+                                                         "not supplied, ",
+                                                         "including all years",
+                                                         " contained in the ",
+                                                         "files provided.")))
         } else {
             data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ]
         }
-    } else {
+    } else if (instructions[[1]] == 'dictionary') {
         # Name columns based on CSV or dict?
-        data.df_f <- readr::read_csv(file = paths)
+        data.df_f <- readr::read_csv(file = path)
+        # Pending to filter by primary_site and year_dx
     }
     return(data.df_f)
 }

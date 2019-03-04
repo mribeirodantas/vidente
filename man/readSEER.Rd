@@ -4,9 +4,15 @@
 \alias{readSEER}
 \title{Reads SEER data from ASCII data files.}
 \usage{
-readSEER(paths, read_dir = FALSE, year_dx, primary_site = FALSE)
+readSEER(path, instructions, read_dir = FALSE, year_dx,
+  primary_site = "")
 }
 \arguments{
+\item{path}{A path or a vector with paths to either folder with SEER ASCII
+data files or directly to the file(s).}
+
+\item{instructions}{The output variable from the preprocessSEER function}
+
 \item{read_dir}{If true, it reads all .TXT files in the directory or
 directories provided in the path parameter. If this parameter is missing
 or FALSE, vidente will only read the TXT you explicitly informed.}
@@ -15,9 +21,6 @@ or FALSE, vidente will only read the TXT you explicitly informed.}
 years of diagnosis)}
 
 \item{primary_site}{Filter the result to this primary site}
-
-\item{path}{A path or a vector with paths to either folder with SEER ASCII
-data files or directly to the file(s).}
 }
 \value{
 A data frame with all SEER data from the ASCII data files you
@@ -27,20 +30,19 @@ A data frame with all SEER data from the ASCII data files you
 Reads SEER data from ASCII data files.
 }
 \examples{
-# You must preprocess a instruction file before, so that readSEER knows the
-  format of your SEER ASCII data files.
+# First preprocess a instruction file
 \dontrun{
-preprocessSEER('read.seer.research.nov17.sas')
-}
+instr <- preprocessSEER('read.seer.research.nov17.sas', filetype = 'sas')
 
 # Now you can read it
-\dontrun{
-paths = c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
-          '/home/yourusername/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')}
+paths <- c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
+          '/home/yourusername/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')
 
 # I'm interested here in patients with breast cancer diagnosed between 2012
 # and 2015
-\dontrun{
-# seer_data <- readSEER(paths, c(2012:2015), primary_site='Breast')}
+seer_data <- readSEER(path = paths,
+                      instructions = instr,
+                      year_dx = c(2012:2015),
+                      primary_site = 'Breast')}
 
 }
