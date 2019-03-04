@@ -13,6 +13,8 @@ Imports: crayon,
   readr,
   stringr
 Suggests: 
+    knitr,
+    rmarkdown
 Description: vidente contains a set of functions to parse and analyze the
   Surveillance, Epidemiology, and End Results (SEER) program database.
 License: file LICENSE
@@ -21,3 +23,4 @@ URL: https://github.com/mribeirodantas/vidente/issues
 BugReports: https://github.com/mribeirodantas/vidente
 LazyData: true
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
