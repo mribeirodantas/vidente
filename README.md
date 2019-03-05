@@ -23,7 +23,7 @@ You can also clone this repository and run the R command above inside the cloned
 
 ## Contributing
 
-Contributions are very welcomed (more details [here](CONTRIBUTING.md)) and feel free to reach out by e-mail if you want to discuss something with me.
+Contributions are very welcomed (more details [here](.github/CONTRIBUTING.md)) and feel free to reach out by e-mail if you want to discuss something with me.
 
 ## Maintainer
 
