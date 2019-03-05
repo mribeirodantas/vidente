@@ -4,8 +4,7 @@
 \alias{readSEER}
 \title{Reads SEER data from ASCII data files.}
 \usage{
-readSEER(path, instructions, read_dir = FALSE, year_dx,
-  primary_site = "")
+readSEER(path, instructions, read_dir = FALSE, year_dx, primary_site)
 }
 \arguments{
 \item{path}{A path or a vector with paths to either folder with SEER ASCII
