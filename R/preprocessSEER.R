@@ -3,7 +3,7 @@
 #'
 #' Datasets downloaded from SEER website (after the request process) come in
 #' a compressed file containing, among other things, a .sas file with
-#' instructions on data fields (fields .data$width) to parse the text files and also
+#' instructions on data fields (fields width) to parse the text files and also
 #' one sentence explanation for every field. One can also obtain data from SEER
 #' through the SEER*Stat software. In this case, the text file may come in
 #' different ways in a dictionary file (.dic).
