@@ -31,96 +31,96 @@
 #' @import readr crayon
 #' @export
 readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
-                     primary_site='') {
+                     primary_site) {
+  # Some parameter checking
   if (missing(path)) {
     stop("It's impossible to read the files if you supply no path to files.")
+  }
+  if (missing(instructions)) {
+    stop("You must supply the instructions parameter.")
+  } 
+  if (missing(year_dx)) {
+      print(paste(cat(crayon::red("Note:")), paste("Year of diagnosis",
+                                                   "not supplied,",
+                                                   "including all years",
+                                                   "contained in the",
+                                                   "files provided.")))
+  }
+  if (missing(primary_site)) {
+    print(paste(cat(crayon::red("Note:")), paste("Cancer primary site",
+                                                   "not supplied,",
+                                                   "including all sites",
+                                                   "contained in the",
+                                                   "files provided.")))
+  } else {
+    code <- siteLookUp(primary_site)
+    if (is.na(code)) {
+      stop("Primary site name invalid. Check listPrimarySite()")
     }
-    if (instructions[[1]] == 'sas') {
-      ## read the file with the fixed width positions
-        data.df_f <- NULL
-        if (read_dir == FALSE) {
-            if (all(endsWith(path, ".TXT"))) {
-                if (!all(file.exists(path))) {
-                  stop("At least one of the files in your vector does not
-                       exist.")
-                }
-                for (path_file in path) {
-                  data.df <- readr::read_fwf(
-                    path_file, readr::fwf_positions(instructions[[2]]$start,
-                                                    instructions[[2]]$end,
-                                                    instructions[[2]]$col_name))
-                  # , colClasses=c('character','integer','character','integer',
-                  # 'character','integer','character',
-                  # 'character','character','character'))
-                  data.df_f <- rbind(data.df_f, data.df)
-                }
-            } else {
-                stop(paste("All the paths in your vector must point to a .TXT",
-                           "file. Check the read_dir parameter if you want to",
-                           "read all text files a directory."))
-            }
-        } else {
-            if (!all(dir.exists(path))) {
-                stop(paste("At least one of the directories in your vector ",
-                           "does not exist."))
-            }
-            if (all(endsWith(path, ".TXT"))) {
-                stop(paste("If read_dir is set to TRUE, your vector must ",
-                           "contain directory paths and not file paths."))
-            }
-            for (path_file in path) {
-                for (file in dir(path_file)) {
-                  data.df <- readr::read_fwf(paste(path_file, file, sep = ""),
-                                             readr::fwf_positions(
-                                               instructions[[2]]$start,
-                                               instructions[[2]]$end,
-                                               instructions[[2]]$col_name))
-                  # , colClasses=c('character','integer','character','integer',
-                  # 'character','integer','character',
-                  # 'character','character','character'))
-                  data.df_f <- rbind(data.df_f, data.df)
-                }
-            }
-        }
-        # select only those rows that match the chosen site
-        # THIS SHOULD
-        # BE DONE
-        # AT THE BEGINNING
-        if (primary_site == '') {
-            print(paste(cat(crayon::red("Note:")), paste(" Cancer primary site",
-                                                         " not supplied, ",
-                                                         "including all sites",
-                                                         " contained in the ",
-                                                         "files provided.")))
-        } else {
-          code <- siteLookUp(primary_site)
-          if (is.na(code)) {
-            stop("Primary site name invalid. Check listPrimarySite()")
+  }
+  if (instructions[[1]] == 'sas') {
+    ## read the file with the fixed width positions
+      data.df_f <- NULL
+      if (read_dir == FALSE) {
+          if (all(endsWith(path, ".TXT"))) {
+              if (!all(file.exists(path))) {
+                stop("At least one of the files in your vector does not
+                     exist.")
+              }
+              for (path_file in path) {
+                data.df <- readr::read_fwf(
+                  path_file, readr::fwf_positions(instructions[[2]]$start,
+                                                  instructions[[2]]$end,
+                                                  instructions[[2]]$col_name))
+                # , colClasses=c('character','integer','character','integer',
+                # 'character','integer','character',
+                # 'character','character','character'))
+                data.df_f <- rbind(data.df_f, data.df)
+              }
           } else {
-            ata.df_f <- data.df_f[
-                        data.df_f$SITERWHO == code, ]
+              stop(paste("All the paths in your vector must point to a .TXT",
+                         "file. Check the read_dir parameter if you want to",
+                         "read all text files a directory."))
           }
-        }
-        # select only those rows that match the chosen year of diagnosis
-        # (or range of)
-        if (missing(year_dx)) {
-            print(paste(cat(crayon::red("Note:")), paste(" Year of diagnosis ",
-                                                         "not supplied, ",
-                                                         "including all years",
-                                                         " contained in the ",
-                                                         "files provided.")))
-        } else {
-            data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ]
-        }
-    } else if (instructions[[1]] == 'dictionary') {
-        # Name columns based on CSV or dict?
-        data.df_f <- readr::read_csv(file = path)
-        # Pending to filter by primary_site and year_dx
-    }
-    return(data.df_f)
+      } else {
+          if (!all(dir.exists(path))) {
+              stop(paste("At least one of the directories in your vector",
+                         "does not exist."))
+          }
+          if (all(endsWith(path, ".TXT"))) {
+              stop(paste("If read_dir is set to TRUE, your vector must",
+                         "contain directory paths and not file paths."))
+          }
+          for (path_file in path) {
+              for (file in dir(path_file)) {
+                data.df <- readr::read_fwf(paste(path_file, file, sep = ""),
+                                           readr::fwf_positions(
+                                             instructions[[2]]$start,
+                                             instructions[[2]]$end,
+                                             instructions[[2]]$col_name))
+                # , colClasses=c('character','integer','character','integer',
+                # 'character','integer','character',
+                # 'character','character','character'))
+                data.df_f <- rbind(data.df_f, data.df)
+              }
+          }
+      }
+      # select only those rows that match the chosen site
+      if (!missing(primary_site)) {
+          ata.df_f <- data.df_f[data.df_f$SITERWHO == code, ]
+      }
+      # select only those rows that match the chosen year of diagnosis
+      # (or range of)
+      if (!missing(year_dx)) {
+        data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ]
+      }
+  } else if (instructions[[1]] == 'dictionary') {
+      # Name columns based on CSV or dict?
+      data.df_f <- readr::read_csv(file = path)
+      # Pending to filter by primary_site and year_dx
+  }
+  return(data.df_f)
 }
-
-# Gotta hide it from the help page
 #' Converts primary site name to recode
 #' @param site_name cancer primary site name
 #' @return Recode code for the specified cancer primary site name
