@@ -23,7 +23,7 @@ You can also clone this repository and run the R command above inside the cloned
 
 ## Contributing
 
-Contributions are very welcomed and feel free to reach out by e-mail if you want to discuss something with me.
+Contributions are very welcomed (more details [here](CONTRIBUTING.md)) and feel free to reach out by e-mail if you want to discuss something with me.
 
 ## Maintainer
 
@@ -35,4 +35,4 @@ Contributions are very welcomed and feel free to reach out by e-mail if you want
 
 ## License
 
-This project is licensed under the General Public License version 3 or any other later released version fo this license. See the [LICENSE](LICENSE) file for details
+This project is licensed under the General Public License version 3 or any other version of this license released later. See the [LICENSE](LICENSE) file for details
