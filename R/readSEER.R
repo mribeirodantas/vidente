@@ -39,6 +39,10 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
   if (missing(instructions)) {
     stop("You must supply the instructions parameter.")
   } 
+  if (!class(instructions) == 'list') {
+    stop(paste('Option not recognized. The instructions parameter does not',
+               'look like it came from the preprocessSEER function.'))
+  }
   if (missing(year_dx)) {
     print(paste(cat(crayon::red("Note:")), paste("Year of diagnosis",
                                                  "not supplied,",
