@@ -125,6 +125,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
 #' @param site_name cancer primary site name
 #' @return Recode code for the specified cancer primary site name
 #' @import stringr utils
+#' @keywords internal
 siteLookUp <- function(site_name) {
     site_name <- stringr::str_to_title(site_name)
     code <- sites_recodes[sites_recodes$sites == site_name, ]$recodes

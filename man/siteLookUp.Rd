@@ -15,3 +15,4 @@ Recode code for the specified cancer primary site name
 \description{
 Converts primary site name to recode
 }
+\keyword{internal}
