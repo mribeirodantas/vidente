@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^check.R$
 ^data-raw$
+^.github$
