@@ -7,9 +7,12 @@
 listPrimarySites()
 }
 \value{
-It displays on the screen the cancer primary sites supported by the
-  package
+It displays on the screen the cancer primary sites supported by this
+  package.
 }
 \description{
 List cancers primary sites that are supported by this package
+}
+\seealso{
+\url{https://seer.cancer.gov/siterecode/icdo3_dwhoheme/index.html}
 }
