@@ -65,7 +65,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
   } else {
     code <- siteLookUp(primary_site)
     if (is.na(code)) {
-      stop("Primary site name invalid. Check listPrimarySite()")
+      stop("Primary site name invalid. Check listPrimarySites()")
     }
   }
   # Directory reading parameter checking
