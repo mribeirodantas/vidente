@@ -2,7 +2,7 @@
 % Please edit documentation in R/readSEER.R
 \name{readSEER}
 \alias{readSEER}
-\title{Reads SEER data from ASCII data files.}
+\title{Reads SEER data from ASCII data file(s).}
 \usage{
 readSEER(path, instructions, read_dir = FALSE, year_dx, primary_site)
 }
@@ -10,11 +10,12 @@ readSEER(path, instructions, read_dir = FALSE, year_dx, primary_site)
 \item{path}{A path or a vector with paths to either folder with SEER ASCII
 data files or directly to the file(s).}
 
-\item{instructions}{The output variable from the preprocessSEER function}
+\item{instructions}{The output variable from the buildSEERParser function}
 
 \item{read_dir}{If true, it reads all .TXT files in the directory or
 directories provided in the path parameter. If this parameter is missing
-or FALSE, vidente will only read the TXT you explicitly informed.}
+or FALSE, vidente will only read the TXT you explicitly informed. This
+function does not work with data exported from the SEER*Stat software.}
 
 \item{year_dx}{Filter the result to this year of diagnosis (or range of
 years of diagnosis)}
@@ -22,16 +23,17 @@ years of diagnosis)}
 \item{primary_site}{Filter the result to this primary site}
 }
 \value{
-A data frame with all SEER data from the ASCII data files you
+A data frame with all SEER data from the ASCII data file(s) you
   provided, given the criteria you chose in the parameters.
 }
 \description{
-Reads SEER data from ASCII data files.
+Reads SEER data from ASCII data file(s).
 }
 \examples{
-# First preprocess a instruction file
+# First build parsing instructions
 \dontrun{
-instr <- preprocessSEER('read.seer.research.nov17.sas', filetype = 'sas')
+instr <- buildSEERParser(file_path = 'read.seer.research.nov17.sas',
+                         file_source = 'download')
 
 # Now you can read it
 paths <- c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',

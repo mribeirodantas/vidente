@@ -1,4 +1,4 @@
-#' Preprocess SEER instruction files.
+#' Builds a parser to analyze SEER data.
 #'
 #'
 #' Datasets downloaded from SEER website (after the request process) come in
@@ -6,25 +6,25 @@
 #' instructions on data fields (fields width) to parse the text files and also
 #' one sentence explanation for every field. One can also obtain data from SEER
 #' through the SEER*Stat software. In this case, the text file may come in
-#' different ways in a dictionary file (.dic).
+#' different ways that are explained in a dictionary file (.dic).
 #'
-#' @param file_path A path to the .sas file or .dic file from SEER*Stat.
-#' @param filetype The type of instruction file you are providing. If it is a
-#'   a dictionary file from SEER*Stat the option is 'dictionary'. Otherwise the
-#'   option is 'sas'.
+#' @param file_path A path to the .sas file or .dic file.
+#' @param file_source If it is a dictionary file from SEER*Stat the option is
+#'   'seerstat'. Otherwise the option is 'download'.
 #'
-#' @return A list with instructions for \link{readSEER}.
+#' @return A list with parsing instructions for \link{readSEER}.
 #'
 #' @examples
 #' \dontrun{
-#' instr <- preprocessSEER("read.seer.research.nov17.sas", filetype = 'sas')}
+#' instr <- buildSEERParser(file_path = "read.seer.research.nov17.sas",
+#'                          file_source = 'download')}
 #'
 #' @import readr dplyr stringr crayon
 #' @importFrom rlang .data
 #'
 #' @export
-preprocessSEER <- function(file_path, filetype) {
-  if (filetype == 'sas') {
+buildSEERParser <- function(file_path, file_source) {
+  if (file_source == 'download') {
     options(warn = -1)
     sas.raw <- readr::read_lines(file_path)
     sas.df <- dplyr::tibble(raw = sas.raw) %>%
@@ -56,8 +56,8 @@ preprocessSEER <- function(file_path, filetype) {
     column_mapping <- sas.df %>%
       dplyr::select(.data$col_name, .data$col_desc)
     options(warn = 0)
-    instructions <- list('sas', sas.df)
-  } else if (filetype == 'dictionary') {
+    instructions <- list('download', sas.df)
+  } else if (file_source == 'seerstat') {
     con <- file(file_path, "r")
     column_labels <- NULL
     while (TRUE) {
@@ -81,13 +81,13 @@ preprocessSEER <- function(file_path, filetype) {
       }
     }
     close(con)
-    instructions <- list('dictionary', as.vector(column_labels),
+    instructions <- list('seerstat', as.vector(column_labels),
                          separator, col_names)
   } else {
-    print(paste(cat(crayon::red("Error:")), paste("Option for filetype",
+    print(paste(cat(crayon::red("Error:")), paste("Option for file_source",
                                                   "parameter not recognized.",
                                                   "You must choose either",
                                                   "'download' or",
-                                                  "'dictionary'."), sep=""))
+                                                  "'seerstat'."), sep=""))
   }
 }

@@ -1,21 +1,23 @@
-#' Reads SEER data from ASCII data files.
+#' Reads SEER data from ASCII data file(s).
 #'
 #' @param path A path or a vector with paths to either folder with SEER ASCII
 #'   data files or directly to the file(s).
-#' @param instructions The output variable from the preprocessSEER function
+#' @param instructions The output variable from the buildSEERParser function
 #' @param read_dir If true, it reads all .TXT files in the directory or
 #'   directories provided in the path parameter. If this parameter is missing
-#'   or FALSE, vidente will only read the TXT you explicitly informed.
+#'   or FALSE, vidente will only read the TXT you explicitly informed. This
+#'   function does not work with data exported from the SEER*Stat software.
 #' @param year_dx Filter the result to this year of diagnosis (or range of
 #'   years of diagnosis)
 #' @param primary_site Filter the result to this primary site
-#' @return A data frame with all SEER data from the ASCII data files you
+#' @return A data frame with all SEER data from the ASCII data file(s) you
 #'   provided, given the criteria you chose in the parameters.
 #'
 #' @examples
-#' # First preprocess a instruction file
+#' # First build parsing instructions
 #' \dontrun{
-#' instr <- preprocessSEER('read.seer.research.nov17.sas', filetype = 'sas')
+#' instr <- buildSEERParser(file_path = 'read.seer.research.nov17.sas',
+#'                          file_source = 'download')
 #'
 #' # Now you can read it
 #' paths <- c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
@@ -33,9 +35,11 @@
 readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                      primary_site) {
   # Some parameter checking
+  # Path to files checking
   if (missing(path)) {
     stop("It's impossible to read the files if you supply no path to files.")
   }
+  # Parsing instructions checking
   if (missing(instructions)) {
     stop("You must supply the instructions parameter.")
   } 
@@ -43,6 +47,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     stop(paste('Option not recognized. The instructions parameter does not',
                'look like it came from the preprocessSEER function.'))
   }
+  # Year of diagnosis parameter checking
   if (missing(year_dx)) {
     print(paste(cat(crayon::red("Note:")), paste("Year of diagnosis",
                                                  "not supplied,",
@@ -50,6 +55,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                                                  "contained in the",
                                                  "files provided.")))
   }
+  # Primary site parameter checking
   if (missing(primary_site)) {
     print(paste(cat(crayon::red("Note:")), paste("Cancer primary site",
                                                  "not supplied,",
@@ -62,8 +68,14 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
       stop("Primary site name invalid. Check listPrimarySite()")
     }
   }
+  # Directory reading parameter checking
+  if (!missing(read_dir)) {
+    if (instructions[[1]] != 'download') {
+      stop("read_dir parameter does not work with data exported from SEER*Stat")
+    }
+  }
   ## read the file with the fixed width positions
-  if (instructions[[1]] == 'sas') {
+  if (instructions[[1]] == 'download') {
     data.df_f <- NULL
     # TXT files will be read
     if (read_dir == FALSE) {
@@ -115,7 +127,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     if (!missing(year_dx)) {
       data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ]
     }
-  } else if (instructions[[1]] == 'dictionary') {
+  } else if (instructions[[1]] == 'seerstat') {
     # Name columns based on CSV or dict?
     sep <- ifelse(instructions[[3]] == 'tab', '\t', ',') 
     if (instructions[[4]] == TRUE) {
