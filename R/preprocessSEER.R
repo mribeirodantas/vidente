@@ -74,11 +74,14 @@ preprocessSEER <- function(file_path, filetype) {
         col_names <- gsub("Variable names included=", "", line)
         if (col_names == 'true') {
           col_names <- TRUE
+        } else {
+          col_names <- FALSE
         }
       }
     }
     close(con)
-    instructions <- list('dictionary', column_labels, separator, col_names)
+    instructions <- list('dictionary', as.vector(column_labels),
+                         separator, col_names)
   } else {
     print(paste(cat(crayon::red("Error:")), " Option for filetype parameter not recognized. You must choose either 'sas' or 'dictionary'."))
   }
