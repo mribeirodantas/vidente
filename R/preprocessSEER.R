@@ -67,9 +67,18 @@ preprocessSEER <- function(file_path, filetype) {
       if (grepl("^Var[0-9]*Name=", line)) {
         column_labels <- cbind(column_labels, gsub("Var[0-9]*Name=", "", line))
       }
+      if (grepl("^Field delimiter=", line)) {
+        separator <- gsub("^Field delimiter=", "", line)
+      }
+      if (grepl("^Variable names included=", line)) {
+        col_names <- gsub("Variable names included=", "", line)
+        if (col_names == 'true') {
+          col_names <- TRUE
+        }
+      }
     }
     close(con)
-    instructions <- list('dictionary', column_labels)
+    instructions <- list('dictionary', column_labels, separator, col_names)
   } else {
     print(paste(cat(crayon::red("Error:")), " Option for filetype parameter not recognized. You must choose either 'sas' or 'dictionary'."))
   }

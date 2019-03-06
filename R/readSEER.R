@@ -117,7 +117,9 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     }
   } else if (instructions[[1]] == 'dictionary') {
     # Name columns based on CSV or dict?
-    data.df_f <- readr::read_csv(file = path)
+    sep <- ifelse(instructions[[3]] == 'tab', '\t', ',') 
+    col_names <- ifelse(instructions[[4]] == TRUE, TRUE, instructions[[2]])
+    data.df_f <- readr::read_delim(file = path, sep, col_names = col_names)
     # Pending to filter by primary_site and year_dx
   } else {
     stop(paste('Option not recognized. The instructions parameter does not',
