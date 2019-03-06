@@ -138,8 +138,16 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     } else {
       stop("readSEER can't interpret if variable names came or not in the data")
     }
-
-    # Pending to filter by primary_site and year_dx
+    # select only those rows that match the chosen site
+    if (!missing(primary_site)) {
+      data.df_f <- data.df_f[
+        data.df_f$`Site recode ICD-O-3/WHO 2008` == primary_site, ]
+    }
+    # select only those rows that match the chosen year of diagnosis
+    # (or range of)
+    if (!missing(year_dx)) {
+      data.df_f <- data.df_f[data.df_f$`Year of diagnosis` %in% year_dx, ]
+    }
   } else {
     stop(paste('Option not recognized. The instructions parameter does not',
                'look like it came from the preprocessSEER function.'))
