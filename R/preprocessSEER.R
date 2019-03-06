@@ -48,7 +48,8 @@ preprocessSEER <- function(file_path, filetype) {
                                                "\\*\\/",
                                                "" )) ) %>%
       # coerce to integers
-      dplyr::mutate_at(dplyr::vars(.data$start, .data$width), dplyr::funs(as.integer)) %>%
+      dplyr::mutate_at(dplyr::vars(.data$start, .data$width),
+                       dplyr::funs(as.integer)) %>%
       # calculate the end position
       dplyr::mutate(end = .data$start + .data$width - 1)
 
@@ -83,6 +84,10 @@ preprocessSEER <- function(file_path, filetype) {
     instructions <- list('dictionary', as.vector(column_labels),
                          separator, col_names)
   } else {
-    print(paste(cat(crayon::red("Error:")), " Option for filetype parameter not recognized. You must choose either 'sas' or 'dictionary'."))
+    print(paste(cat(crayon::red("Error:")), paste("Option for filetype",
+                                                  "parameter not recognized.",
+                                                  "You must choose either",
+                                                  "'download' or",
+                                                  "'dictionary'."), sep=""))
   }
 }
