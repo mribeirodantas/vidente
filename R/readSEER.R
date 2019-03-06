@@ -121,7 +121,8 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     if (instructions[[4]] == TRUE) {
       data.df_f <- readr::read_delim(file = path, sep, col_names = TRUE)
     } else if (instructions[[4]] == FALSE) {
-      data.df_f <- readr::read_delim(file = path, sep, col_names = instr[[2]])
+      data.df_f <- readr::read_delim(file = path, sep,
+                                     col_names = instructions[[2]])
     } else {
       stop("readSEER can't interpret if variable names came or not in the data")
     }
