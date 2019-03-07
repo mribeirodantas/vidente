@@ -2,8 +2,7 @@
 % Please edit documentation in R/histNA.R
 \name{histNA}
 \alias{histNA}
-\title{Plots a histogram on the proportion of NA values for all the features in the
-SEER dataframe.}
+\title{Plots a histogram on the proportion of NA}
 \usage{
 histNA(dataframe, summary = FALSE, binwidth)
 }
@@ -17,8 +16,8 @@ values apart from the histogram.}
 it to a specific number if you want.}
 }
 \description{
-Plots a histogram on the proportion of NA values for all the features in the
-SEER dataframe.
+Plots a histogram on the proportion of missing values (NA) for all the
+features in the SEER dataframe.
 }
 \examples{
 # First build parsing instructions

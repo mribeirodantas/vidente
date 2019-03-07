@@ -1,5 +1,7 @@
-#' Plots a histogram on the proportion of NA values for all the features in the
-#' SEER dataframe.
+#' Plots a histogram on the proportion of NA
+#' 
+#' Plots a histogram on the proportion of missing values (NA) for all the
+#' features in the SEER dataframe.
 #' 
 #' @param dataframe The dataframe with SEER data
 #' @param summary If set to TRUE, the function will print a summary on the NA
