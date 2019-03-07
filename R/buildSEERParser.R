@@ -19,7 +19,7 @@
 #' instr <- buildSEERParser(file_path = "read.seer.research.nov17.sas",
 #'                          file_source = 'download')}
 #'
-#' @import readr dplyr stringr crayon
+#' @import readr dplyr stringr
 #' @importFrom rlang .data
 #'
 #' @export
@@ -84,10 +84,7 @@ buildSEERParser <- function(file_path, file_source) {
     instructions <- list('seerstat', as.vector(column_labels),
                          separator, col_names)
   } else {
-    print(paste(cat(crayon::red("Error:")), paste("Option for file_source",
-                                                  "parameter not recognized.",
-                                                  "You must choose either",
-                                                  "'download' or",
-                                                  "'seerstat'."), sep=""))
+    print(paste("Error: Option for file_source parameter not recognized. You",
+                "You must choose either 'download' or 'seerstat'."), sep="")
   }
 }

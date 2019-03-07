@@ -3,7 +3,6 @@
 export(buildSEERParser)
 export(listPrimarySites)
 export(readSEER)
-import(crayon)
 import(dplyr)
 import(readr)
 import(stringr)

@@ -8,8 +8,7 @@ Authors@R: as.person(c(
     "Herve Isambert <herve.isambert@curie.fr> [aut]"
   ))
 Depends: R (>= 3.1.0)
-Imports: crayon,
-  dplyr,
+Imports: dplyr,
   readr,
   rlang,
   stringr

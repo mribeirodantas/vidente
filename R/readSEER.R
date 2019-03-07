@@ -30,7 +30,7 @@
 #'                       year_dx = c(2012:2015),
 #'                       primary_site = 'Breast')}
 #'
-#' @import readr crayon
+#' @import readr
 #' @export
 readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                      primary_site) {
@@ -49,19 +49,13 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
   }
   # Year of diagnosis parameter checking
   if (missing(year_dx)) {
-    print(paste(cat(crayon::red("Note:")), paste("Year of diagnosis",
-                                                 "not supplied,",
-                                                 "including all years",
-                                                 "contained in the",
-                                                 "files provided.")))
+    print(paste("Note: Year of diagnosis not supplied, including all years",
+                "contained in the files provided."))
   }
   # Primary site parameter checking
   if (missing(primary_site)) {
-    print(paste(cat(crayon::red("Note:")), paste("Cancer primary site",
-                                                 "not supplied,",
-                                                 "including all sites",
-                                                 "contained in the",
-                                                 "files provided.")))
+    print(paste("Note: Cancer primary site not supplied, including all sites",
+                "contained in the files provided."))
   } else {
     code <- siteLookUp(primary_site)
     if (is.na(code)) {
@@ -172,54 +166,54 @@ siteLookUp <- function(site_name) {
 #' @seealso \url{https://seer.cancer.gov/siterecode/icdo3_dwhoheme/index.html}
 #' @export
 listPrimarySites <- function() {
-  cat(crayon::red("# Oral Cavity and Pharynx"))
+  cat("# Oral Cavity and Pharynx")
   print(paste(sites_recodes$sites[1:10], collapse = ", "))
-  cat(crayon::red("# Digestive System"))
+  cat("# Digestive System")
   print(paste(sites_recodes$sites[11:13], collapse = ", "))
-  cat(crayon::red("# Colon Excluding rectum"))
+  cat("# Colon Excluding rectum")
   print(paste(sites_recodes$sites[14:22], collapse = ", "))
-  cat(crayon::red("# Rectum and Rectosigmoid Junction"))
+  cat("# Rectum and Rectosigmoid Junction")
   print(paste(sites_recodes$sites[23:25], collapse = ", "))
-  cat(crayon::red("# Liver and Intrahepatic Bile Duct"))
+  cat("# Liver and Intrahepatic Bile Duct")
   print(paste(sites_recodes$sites[26:33], collapse = ", "))
-  cat(crayon::red("# Respiratory System"))
+  cat("# Respiratory System")
   print(paste(sites_recodes$sites[34:38], collapse = ", "))
-  cat(crayon::red("# Bones and Joints"))
+  cat("# Bones and Joints")
   print(paste(sites_recodes$sites[39], collapse = ", "))
-  cat(crayon::red("# Soft Tissue including Heart"))
+  cat("# Soft Tissue including Heart")
   print(paste(sites_recodes$sites[40], collapse = ", "))
-  cat(crayon::red("# Skin excluding Basal and Squamous"))
+  cat("# Skin excluding Basal and Squamous")
   print(paste(sites_recodes$sites[41:42], collapse = ", "))
-  cat(crayon::red("# Breast"))
+  cat("# Breast")
   print(paste(sites_recodes$sites[43], collapse = ", "))
-  cat(crayon::red("# Female Genital System"))
+  cat("# Female Genital System")
   print(paste(sites_recodes$sites[44:50], collapse = ", "))
-  cat(crayon::red("# Male Genital System"))
+  cat("# Male Genital System")
   print(paste(sites_recodes$sites[51:54], collapse = ", "))
-  cat(crayon::red("# Urinary System"))
+  cat("# Urinary System")
   print(paste(sites_recodes$sites[55:58], collapse = ", "))
-  cat(crayon::red("# Eye and Orbit"))
+  cat("# Eye and Orbit")
   print(paste(sites_recodes$sites[59], collapse = ", "))
-  cat(crayon::red("# Brain and Other Nervous System"))
+  cat("# Brain and Other Nervous System")
   print(paste(sites_recodes$sites[60:61], collapse = ", "))
-  cat(crayon::red("# Endocrine System"))
+  cat("# Endocrine System")
   print(paste(sites_recodes$sites[62:63], collapse = ", "))
-  cat(crayon::red("# Lymphoma Hodgkin"))
+  cat("# Lymphoma Hodgkin")
   print(paste(sites_recodes$sites[64:65], collapse = ", "))
-  cat(crayon::red("# Lymphoma Non-Hodgkin"))
+  cat("# Lymphoma Non-Hodgkin")
   print(paste(sites_recodes$sites[66:67], collapse = ", "))
-  cat(crayon::red("# Myeloma"))
+  cat("# Myeloma")
   print(paste(sites_recodes$sites[68], collapse = ", "))
-  cat(crayon::red("# Lymphocyte Leukemia"))
+  cat("# Lymphocyte Leukemia")
   print(paste(sites_recodes$sites[69:72], collapse = ", "))
-  cat(crayon::red("# Myeloid and Monocytic Leukemia"))
+  cat("# Myeloid and Monocytic Leukemia")
   print(paste(sites_recodes$sites[73:76], collapse = ", "))
-  cat(crayon::red("# Other Leukemia"))
+  cat("# Other Leukemia")
   print(paste(sites_recodes$sites[77:78], collapse = ", "))
-  cat(crayon::red("# Mesothelioma"))
+  cat("# Mesothelioma")
   print(paste(sites_recodes$sites[79], collapse = ", "))
-  cat(crayon::red("# Kaposi Sarcoma"))
+  cat("# Kaposi Sarcoma")
   print(paste(sites_recodes$sites[80], collapse = ", "))
-  cat(crayon::red("# Miscellaneous and Invalid"))
+  cat("# Miscellaneous and Invalid")
   print(paste(sites_recodes$sites[81:82], collapse = ", "))
 }
