@@ -105,16 +105,13 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                                        instructions[[2]]$start,
                                        instructions[[2]]$end,
                                        instructions[[2]]$col_name))
-          # , colClasses=c('character','integer','character','integer',
-          # 'character','integer','character',
-          # 'character','character','character'))
           data.df_f <- rbind(data.df_f, data.df)
         }
       }
     }
     # select only those rows that match the chosen site
     if (!missing(primary_site)) {
-      ata.df_f <- data.df_f[data.df_f$SITERWHO == code, ]
+      data.df_f <- data.df_f[data.df_f$SITERWHO == code, ]
     }
     # select only those rows that match the chosen year of diagnosis
     # (or range of)
