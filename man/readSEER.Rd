@@ -20,7 +20,9 @@ function does not work with data exported from the SEER*Stat software.}
 \item{year_dx}{Filter the result to this year of diagnosis (or range of
 years of diagnosis)}
 
-\item{primary_site}{Filter the result to this primary site}
+\item{primary_site}{Filter the result to a primary site (or a vector of
+primary sites for SEER*Stat files, or a site category from
+listPrimarySite() for data downloaded from SEER).}
 }
 \value{
 A data frame with all SEER data from the ASCII data file(s) you

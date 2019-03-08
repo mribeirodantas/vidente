@@ -9,7 +9,9 @@
 #'   function does not work with data exported from the SEER*Stat software.
 #' @param year_dx Filter the result to this year of diagnosis (or range of
 #'   years of diagnosis)
-#' @param primary_site Filter the result to this primary site
+#' @param primary_site Filter the result to a primary site (or a vector of
+#'   primary sites for SEER*Stat files, or a site category from
+#'   listPrimarySite() for data downloaded from SEER).
 #' @return A data frame with all SEER data from the ASCII data file(s) you
 #'   provided, given the criteria you chose in the parameters.
 #'
@@ -58,7 +60,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                 "contained in the files provided."))
   } else {
     code <- primarySiteLookUp(primary_site)
-    if (is.null(code)) {
+    if (code == -1) {
       stop("Primary site name invalid. Check listPrimarySites()")
     }
   }
@@ -111,7 +113,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     }
     # select only those rows that match the chosen site
     if (!missing(primary_site)) {
-      data.df_f <- data.df_f[data.df_f$SITERWHO == code, ]
+      data.df_f <- data.df_f[data.df_f$SITERWHO %in% code, ]
     }
     # select only those rows that match the chosen year of diagnosis
     # (or range of)
@@ -132,7 +134,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     # select only those rows that match the chosen site
     if (!missing(primary_site)) {
       data.df_f <- data.df_f[
-        data.df_f$`Site recode ICD-O-3/WHO 2008` == primary_site, ]
+        data.df_f$`Site recode ICD-O-3/WHO 2008` %in% primary_site, ]
     }
     # select only those rows that match the chosen year of diagnosis
     # (or range of)
@@ -148,15 +150,26 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
 #' Converts primary site name to recode
 #' @param site_name cancer primary site name
 #' @return Recode code for the specified cancer primary site name
-#' @import stringr utils
+#' @import stringr utils data.tree
 #' @keywords internal
 primarySiteLookUp <- function(site_name) {
-  code <- FindNode(node = sites, name = site_name)$recode
-  if (is.null(code)) {
-    site_name <- stringr::str_to_title(site_name)
-    code <- FindNode(node = sites, name = site_name)$recode
+  # Gotta work on a way to help the user if he mispells the site name
+  tree_node <- FindNode(node = sites, name = site_name)
+  # Does the node exist?
+  if (is.null(tree_node)) {
+    # The node does not exist
+    return(-1)
+  } else if (tree_node$count > 0) {
+    # It is a category node
+    recodes <- c()
+    for (leaf in tree_node$children) {
+      recodes <- c(recodes, leaf$recode)
+    }
+    return(recodes)
+  } else {
+    # The node exists and it is a leaf
+    return(tree_node$recode)
   }
-  return(code)
 }
 
 #' List cancers primary sites that are supported by this package
