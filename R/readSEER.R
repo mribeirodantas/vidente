@@ -58,7 +58,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
                 "contained in the files provided."))
   } else {
     code <- primarySiteLookUp(primary_site)
-    if (is.na(code)) {
+    if (is.null(code)) {
       stop("Primary site name invalid. Check listPrimarySites()")
     }
   }
@@ -151,10 +151,12 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
 #' @import stringr utils
 #' @keywords internal
 primarySiteLookUp <- function(site_name) {
-  site_name <- stringr::str_to_title(site_name)
-  code <- sites_recodes[sites_recodes$sites == site_name, ]$recodes
-  code <- as.integer(as.character(code))
-  return(ifelse(length(code)>0, code, NA))
+  code <- FindNode(node = sites, name = site_name)$recode
+  if (is.null(code)) {
+    site_name <- stringr::str_to_title(site_name)
+    code <- FindNode(node = sites, name = site_name)$recode
+  }
+  return(code)
 }
 
 #' List cancers primary sites that are supported by this package
@@ -163,54 +165,5 @@ primarySiteLookUp <- function(site_name) {
 #' @seealso \url{https://seer.cancer.gov/siterecode/icdo3_dwhoheme/index.html}
 #' @export
 listPrimarySites <- function() {
-  cat("# Oral Cavity and Pharynx")
-  print(paste(sites_recodes$sites[1:10], collapse = ", "))
-  cat("# Digestive System")
-  print(paste(sites_recodes$sites[11:13], collapse = ", "))
-  cat("# Colon Excluding rectum")
-  print(paste(sites_recodes$sites[14:22], collapse = ", "))
-  cat("# Rectum and Rectosigmoid Junction")
-  print(paste(sites_recodes$sites[23:25], collapse = ", "))
-  cat("# Liver and Intrahepatic Bile Duct")
-  print(paste(sites_recodes$sites[26:33], collapse = ", "))
-  cat("# Respiratory System")
-  print(paste(sites_recodes$sites[34:38], collapse = ", "))
-  cat("# Bones and Joints")
-  print(paste(sites_recodes$sites[39], collapse = ", "))
-  cat("# Soft Tissue including Heart")
-  print(paste(sites_recodes$sites[40], collapse = ", "))
-  cat("# Skin excluding Basal and Squamous")
-  print(paste(sites_recodes$sites[41:42], collapse = ", "))
-  cat("# Breast")
-  print(paste(sites_recodes$sites[43], collapse = ", "))
-  cat("# Female Genital System")
-  print(paste(sites_recodes$sites[44:50], collapse = ", "))
-  cat("# Male Genital System")
-  print(paste(sites_recodes$sites[51:54], collapse = ", "))
-  cat("# Urinary System")
-  print(paste(sites_recodes$sites[55:58], collapse = ", "))
-  cat("# Eye and Orbit")
-  print(paste(sites_recodes$sites[59], collapse = ", "))
-  cat("# Brain and Other Nervous System")
-  print(paste(sites_recodes$sites[60:61], collapse = ", "))
-  cat("# Endocrine System")
-  print(paste(sites_recodes$sites[62:63], collapse = ", "))
-  cat("# Lymphoma Hodgkin")
-  print(paste(sites_recodes$sites[64:65], collapse = ", "))
-  cat("# Lymphoma Non-Hodgkin")
-  print(paste(sites_recodes$sites[66:67], collapse = ", "))
-  cat("# Myeloma")
-  print(paste(sites_recodes$sites[68], collapse = ", "))
-  cat("# Lymphocyte Leukemia")
-  print(paste(sites_recodes$sites[69:72], collapse = ", "))
-  cat("# Myeloid and Monocytic Leukemia")
-  print(paste(sites_recodes$sites[73:76], collapse = ", "))
-  cat("# Other Leukemia")
-  print(paste(sites_recodes$sites[77:78], collapse = ", "))
-  cat("# Mesothelioma")
-  print(paste(sites_recodes$sites[79], collapse = ", "))
-  cat("# Kaposi Sarcoma")
-  print(paste(sites_recodes$sites[80], collapse = ", "))
-  cat("# Miscellaneous and Invalid")
-  print(paste(sites_recodes$sites[81:82], collapse = ", "))
+  print(sites)
 }
