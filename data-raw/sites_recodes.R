@@ -1,5 +1,5 @@
-# Code to generate table with cancer primary site name and recode code for
-# the functions primarySiteLookUp and listPrimarySite.
+# Code to generate tree with cancer primary site name and recode code for
+# the functions primarySiteLookUp and listPrimarySites
 
 sites <- c(
   # Oral Cavity and Pharynx

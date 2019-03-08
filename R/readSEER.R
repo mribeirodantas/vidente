@@ -57,7 +57,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     print(paste("Note: Cancer primary site not supplied, including all sites",
                 "contained in the files provided."))
   } else {
-    code <- siteLookUp(primary_site)
+    code <- primarySiteLookUp(primary_site)
     if (is.na(code)) {
       stop("Primary site name invalid. Check listPrimarySites()")
     }
@@ -153,7 +153,7 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
 #' @return Recode code for the specified cancer primary site name
 #' @import stringr utils
 #' @keywords internal
-siteLookUp <- function(site_name) {
+primarySiteLookUp <- function(site_name) {
   site_name <- stringr::str_to_title(site_name)
   code <- sites_recodes[sites_recodes$sites == site_name, ]$recodes
   code <- as.integer(as.character(code))
