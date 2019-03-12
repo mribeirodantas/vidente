@@ -12,7 +12,7 @@ histNA(dataframe, summary = FALSE, additional_na, binwidth)
 \item{summary}{If set to TRUE, the function will print a summary on the NA
 values apart from the histogram.}
 
-\item{additional_na}{A vector additional symbol(s) that should be
+\item{additional_na}{A vector with additional symbol(s) that also should be
 considered NA. This is important for some datasets exported from SEER*Stat
 software that come with NA values and also strings 'Blank(s)' representing
 also lack of values.}

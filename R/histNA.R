@@ -6,7 +6,7 @@
 #' @param dataframe The dataframe with SEER data
 #' @param summary If set to TRUE, the function will print a summary on the NA
 #'   values apart from the histogram.
-#' @param additional_na A vector additional symbol(s) that should be
+#' @param additional_na A vector with additional symbol(s) that also should be
 #'   considered NA. This is important for some datasets exported from SEER*Stat
 #'   software that come with NA values and also strings 'Blank(s)' representing
 #'   also lack of values.
