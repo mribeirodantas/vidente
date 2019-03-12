@@ -27,7 +27,11 @@ Functions to parse SEER data and functions to analyze it.
 
 \section{Analyzing data}{
 
-  The \link{histNA} function plots a histogram of the proportion of NA
-  values for every feature in the dataframe.
+ The \link{histNA} function plots a histogram of the proportion of NA
+ values for every feature in the dataframe.
+ 
+ The \link{removeFullNAFeatures} function removes features whose all values
+ are NA (or along with some additional NA value such as "Blank(s)", as some
+ datasets exported from SEER*Stat software).
 }
 
