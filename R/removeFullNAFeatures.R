@@ -30,6 +30,6 @@ removeFullNAFeatures <- function(dataframe, additional_na) {
       }
     }
   }
-  
+
   return(dataframe)
 }
