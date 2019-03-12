@@ -4,13 +4,18 @@
 \alias{histNA}
 \title{Plots a histogram on the proportion of NA}
 \usage{
-histNA(dataframe, summary = FALSE, binwidth)
+histNA(dataframe, summary = FALSE, additional_na, binwidth)
 }
 \arguments{
 \item{dataframe}{The dataframe with SEER data}
 
 \item{summary}{If set to TRUE, the function will print a summary on the NA
 values apart from the histogram.}
+
+\item{additional_na}{A vector additional symbol(s) that should be
+considered NA. This is important for some datasets exported from SEER*Stat
+software that come with NA values and also strings 'Blank(s)' representing
+also lack of values.}
 
 \item{binwidth}{This parameter is automatically set by ggplot2. You can set
 it to a specific number if you want.}

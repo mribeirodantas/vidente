@@ -6,6 +6,10 @@
 #' @param dataframe The dataframe with SEER data
 #' @param summary If set to TRUE, the function will print a summary on the NA
 #'   values apart from the histogram.
+#' @param additional_na A vector additional symbol(s) that should be
+#'   considered NA. This is important for some datasets exported from SEER*Stat
+#'   software that come with NA values and also strings 'Blank(s)' representing
+#'   also lack of values.
 #' @param binwidth This parameter is automatically set by ggplot2. You can set
 #'   it to a specific number if you want.
 #'
@@ -29,10 +33,16 @@
 #' histNA(seer_data, summary=TRUE)}
 #' @import ggplot2 scales
 #' @export
-histNA <- function(dataframe, summary=FALSE, binwidth) {
+histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
   options(warn = -1)
+  if (missing(additional_na)) {
+    amount_of_na <- colMeans(is.na(dataframe))
+  } else {
+    amount_of_na <- colMeans(is.na(dataframe) | dataframe == additional_na)
+  }
+
   if (!missing(binwidth)) {
-    seer_hist <- qplot(colMeans(is.na(dataframe)),
+    seer_hist <- qplot(amount_of_na,
                        geom="histogram",
                        binwidth=binwidth,
                        xlab = "Proportion of NA",
@@ -42,7 +52,7 @@ histNA <- function(dataframe, summary=FALSE, binwidth) {
                        main = "Proportion of NA values in features") +
                  scale_x_continuous(labels = scales::percent)
   } else {
-    seer_hist <- qplot(colMeans(is.na(dataframe)),
+    seer_hist <- qplot(amount_of_na,
                        geom="histogram",
                        xlab = "Proportion of NA",
                        ylab = "Amount of features",
@@ -52,13 +62,12 @@ histNA <- function(dataframe, summary=FALSE, binwidth) {
                  scale_x_continuous(labels = scales::percent)
   }
   if (summary == TRUE) {
-    x <- table(colMeans(is.na(dataframe)))
+    x <- table(amount_of_na)
     x <- as.data.frame(x)
-    x <- as.data.frame(t(x))
-    colnames(x) <- NULL
-    rownames(x) <- c('Proportion', 'Number of features')
+    rownames(x) <- NULL
+    colnames(x) <- c('Proportion', 'Number of features')
     print(x)
-    print(summary(colMeans(is.na(dataframe))))
+    print(summary(amount_of_na))
   }
   return(seer_hist)
 }
