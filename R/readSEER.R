@@ -44,10 +44,10 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
   # Parsing instructions checking
   if (missing(instructions)) {
     stop("You must supply the instructions parameter.")
-  } 
-  if (!class(instructions) == 'list') {
-    stop(paste('Option not recognized. The instructions parameter does not',
-               'look like it came from the preprocessSEER function.'))
+  }
+  if (!class(instructions) == "list") {
+    stop(paste("Option not recognized. The instructions parameter does not",
+               "look like it came from the preprocessSEER function."))
   }
   # Year of diagnosis parameter checking
   if (missing(year_dx)) {
@@ -66,12 +66,12 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
   }
   # Directory reading parameter checking
   if (!missing(read_dir)) {
-    if (instructions[[1]] != 'download') {
+    if (instructions[[1]] != "download") {
       stop("read_dir parameter does not work with data exported from SEER*Stat")
     }
   }
   ## read the file with the fixed width positions
-  if (instructions[[1]] == 'download') {
+  if (instructions[[1]] == "download") {
     data.df_f <- NULL
     # TXT files will be read
     if (read_dir == FALSE) {
@@ -120,9 +120,9 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
     if (!missing(year_dx)) {
       data.df_f <- data.df_f[data.df_f$YEAR_DX %in% year_dx, ]
     }
-  } else if (instructions[[1]] == 'seerstat') {
+  } else if (instructions[[1]] == "seerstat") {
     # Name columns based on CSV or dict?
-    sep <- ifelse(instructions[[3]] == 'tab', '\t', ',') 
+    sep <- ifelse(instructions[[3]] == "tab", "\t", ",")
     if (instructions[[4]] == TRUE) {
       data.df_f <- readr::read_delim(file = path, sep, col_names = TRUE)
     } else if (instructions[[4]] == FALSE) {
@@ -142,8 +142,8 @@ readSEER <- function(path, instructions, read_dir = FALSE, year_dx,
       data.df_f <- data.df_f[data.df_f$`Year of diagnosis` %in% year_dx, ]
     }
   } else {
-    stop(paste('Option not recognized. The instructions parameter does not',
-               'look like it came from the preprocessSEER function.'))
+    stop(paste("Option not recognized. The instructions parameter does not",
+               "look like it came from the preprocessSEER function."))
   }
   return(data.df_f)
 }

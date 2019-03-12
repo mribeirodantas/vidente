@@ -10,21 +10,21 @@
 #'
 #' @param file_path A path to the .sas file or .dic file.
 #' @param file_source If it is a dictionary file from SEER*Stat the option is
-#'   'seerstat'. Otherwise the option is 'download'.
+#'   "seerstat". Otherwise the option is "download".
 #'
 #' @return A list with parsing instructions for \link{readSEER}.
 #'
 #' @examples
 #' \dontrun{
 #' instr <- buildSEERParser(file_path = "read.seer.research.nov17.sas",
-#'                          file_source = 'download')}
+#'                          file_source = "download")}
 #'
 #' @import readr dplyr stringr
 #' @importFrom rlang .data
 #'
 #' @export
 buildSEERParser <- function(file_path, file_source) {
-  if (file_source == 'download') {
+  if (file_source == "download") {
     options(warn = -1)
     sas.raw <- readr::read_lines(file_path)
     sas.df <- dplyr::tibble(raw = sas.raw) %>%
@@ -56,8 +56,8 @@ buildSEERParser <- function(file_path, file_source) {
     column_mapping <- sas.df %>%
       dplyr::select(.data$col_name, .data$col_desc)
     options(warn = 0)
-    instructions <- list('download', sas.df)
-  } else if (file_source == 'seerstat') {
+    instructions <- list("download", sas.df)
+  } else if (file_source == "seerstat") {
     con <- file(file_path, "r")
     column_labels <- NULL
     while (TRUE) {
@@ -73,7 +73,7 @@ buildSEERParser <- function(file_path, file_source) {
       }
       if (grepl("^Variable names included=", line)) {
         col_names <- gsub("Variable names included=", "", line)
-        if (col_names == 'true') {
+        if (col_names == "true") {
           col_names <- TRUE
         } else {
           col_names <- FALSE
@@ -81,10 +81,12 @@ buildSEERParser <- function(file_path, file_source) {
       }
     }
     close(con)
-    instructions <- list('seerstat', as.vector(column_labels),
+    instructions <- list("seerstat", as.vector(column_labels),
                          separator, col_names)
   } else {
-    print(paste("Error: Option for file_source parameter not recognized. You",
-                "You must choose either 'download' or 'seerstat'."), sep="")
+    stop(paste("Error: Option for file_source parameter not recognized.",
+               "You must choose either \"download\" or \"seerstat\".",
+               sep = " "))
   }
+  return(instructions)
 }

@@ -10,7 +10,7 @@ buildSEERParser(file_path, file_source)
 \item{file_path}{A path to the .sas file or .dic file.}
 
 \item{file_source}{If it is a dictionary file from SEER*Stat the option is
-'seerstat'. Otherwise the option is 'download'.}
+"seerstat". Otherwise the option is "download".}
 }
 \value{
 A list with parsing instructions for \link{readSEER}.
@@ -26,6 +26,6 @@ different ways that are explained in a dictionary file (.dic).
 \examples{
 \dontrun{
 instr <- buildSEERParser(file_path = "read.seer.research.nov17.sas",
-                         file_source = 'download')}
+                         file_source = "download")}
 
 }

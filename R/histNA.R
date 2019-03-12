@@ -43,21 +43,21 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
 
   if (!missing(binwidth)) {
     seer_hist <- qplot(amount_of_na,
-                       geom="histogram",
-                       binwidth=binwidth,
+                       geom = "histogram",
+                       binwidth = binwidth,
                        xlab = "Proportion of NA",
                        ylab = "Amount of features",
-                       alpha=I(.2),
-                       fill=I("blue"),
+                       alpha = I(.2),
+                       fill = I("blue"),
                        main = "Proportion of NA values in features") +
                  scale_x_continuous(labels = scales::percent)
   } else {
     seer_hist <- qplot(amount_of_na,
-                       geom="histogram",
+                       geom = "histogram",
                        xlab = "Proportion of NA",
                        ylab = "Amount of features",
-                       alpha=I(.2),
-                       fill=I("blue"),
+                       alpha = I(.2),
+                       fill = I("blue"),
                        main = "Proportion of NA values in features") +
                  scale_x_continuous(labels = scales::percent)
   }
@@ -65,7 +65,7 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
     x <- table(amount_of_na)
     x <- as.data.frame(x)
     rownames(x) <- NULL
-    colnames(x) <- c('Proportion', 'Number of features')
+    colnames(x) <- c("Proportion", "Number of features")
     print(x)
     print(summary(amount_of_na))
   }
