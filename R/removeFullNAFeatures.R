@@ -16,11 +16,20 @@
 #'
 #' @export
 removeFullNAFeatures <- function(dataframe, additional_na) {
-  if (missing(additional_na)) {
-    df_f <- dataframe[, -which(colMeans(is.na(dataframe)) == 1)]
-  } else {
-    df_f <- dataframe[, -which(colMeans(is.na(dataframe) | dataframe == additional_na) == 1)]
+  # Full NA values are always removed
+  features_full_na <- which(colMeans(is.na(dataframe)) == 1)
+  if (length(features_full_na) > 0) {
+    dataframe <- dataframe[, -features_full_na]
+  }
+
+  if (!missing(additional_na)) {
+    for (term in additional_na) {
+      features_full_na_add <- which(colMeans(dataframe == term) == 1)
+      if (length(features_full_na_add) > 0) {
+        dataframe <- dataframe[, -features_full_na_add]
+      }
+    }
   }
   
-  return(df_f)
+  return(dataframe)
 }
