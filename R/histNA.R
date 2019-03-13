@@ -35,11 +35,14 @@
 #' @export
 histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
   options(warn = -1)
-  if (missing(additional_na)) {
-    amount_of_na <- colMeans(is.na(dataframe))
-  } else {
-    amount_of_na <- colMeans(is.na(dataframe) | dataframe == additional_na)
+  # Convert additional NAs to default NA symbol
+  if (!missing(additional_na)) {
+    for (i in seq_along(dataframe)) {
+      dataframe[[i]][dataframe[[i]] %in% additional_na] <- NA
+    }
   }
+  # Full NA values are always removed
+  amount_of_na <- colMeans(is.na(dataframe))
 
   if (!missing(binwidth)) {
     seer_hist <- qplot(amount_of_na,
