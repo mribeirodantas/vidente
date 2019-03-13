@@ -37,6 +37,7 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
   options(warn = -1)
   # Convert additional NAs to default NA symbol
   if (!missing(additional_na)) {
+    title <- "Proportion of missing values in features"
     for (i in seq_along(dataframe)) {
       dataframe[[i]][dataframe[[i]] %in% additional_na] <- NA
     }
@@ -47,6 +48,8 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
     #   return(df)
     # }
     # But surprisingly the for + is.na version is faster
+  } else {
+    title <- "Proportion of NA values in features"
   }
   # Full NA values are always removed
   amount_of_na <- colMeans(is.na(dataframe))
@@ -59,7 +62,7 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
                        ylab = "Amount of features",
                        alpha = I(.2),
                        fill = I("blue"),
-                       main = "Proportion of NA values in features") +
+                       main = title) +
                  scale_x_continuous(labels = scales::percent)
   } else {
     seer_hist <- qplot(amount_of_na,
@@ -68,7 +71,7 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
                        ylab = "Amount of features",
                        alpha = I(.2),
                        fill = I("blue"),
-                       main = "Proportion of NA values in features") +
+                       main = title) +
                  scale_x_continuous(labels = scales::percent)
   }
   if (summary == TRUE) {
