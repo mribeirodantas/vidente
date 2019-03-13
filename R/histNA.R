@@ -40,6 +40,13 @@ histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
     for (i in seq_along(dataframe)) {
       dataframe[[i]][dataframe[[i]] %in% additional_na] <- NA
     }
+    # The amount of missing values calculation could be replaced by:
+    # {
+    #   is.something <- function(obj, values){
+    #   df <- sapply(obj, function(x) x %in% values)
+    #   return(df)
+    # }
+    # But surprisingly the for + is.na version is faster
   }
   # Full NA values are always removed
   amount_of_na <- colMeans(is.na(dataframe))
