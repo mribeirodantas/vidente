@@ -24,6 +24,10 @@
 #'  The \link{removeFullNAFeatures} function removes features whose all values
 #'  are NA (or along with some additional NA value such as "Blank(s)", as some
 #'  datasets exported from SEER*Stat software).
+#'  
+#'  The \link{findSingleValueFeatures} function finds features with an unique
+#'  value for all rows in the dataframe. This can help you find features that
+#'  can be removed for they only add overhead to the analysis.
 #'
 #' @docType package
 #' @name vidente
