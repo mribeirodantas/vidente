@@ -30,10 +30,10 @@
 #'                       year_dx = c(2012:2015),
 #'                       primary_site = 'Breast')
 #' # Plot the histogram
-#' histNA(seer_data, summary=TRUE)}
+#' plotHistNA(seer_data, summary=TRUE)}
 #' @import ggplot2 scales
 #' @export
-histNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
+plotHistNA <- function(dataframe, summary=FALSE, additional_na, binwidth) {
   options(warn = -1)
   # Convert additional NAs to default NA symbol
   if (!missing(additional_na)) {

@@ -18,7 +18,7 @@ also lack of values.}
 Some features in a SEER dataframe are specific to certain types of cancer.
 If you're analyzing only patients with breast cancer, features that have
 information on prostate cancer, for example, will have only NA values. These
-features are useless to your analysis and should be removed. \code{histNA}
+features are useless to your analysis and should be removed. \code{plotHistNA}
 is a good function to plot this scenario so that you know if you have
 features with all their rows as NA values. By making use of
 removeFullNAFeatures you can get rid of these features.

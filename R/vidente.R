@@ -18,7 +18,7 @@
 #'  for the readSEER function. 
 #'  
 #' @section Analyzing data:
-#'  The \link{histNA} function plots a histogram of the proportion of NA
+#'  The \link{plotHistNA} function plots a histogram of the proportion of NA
 #'  values for every feature in the dataframe.
 #'  
 #'  The \link{removeFullNAFeatures} function removes features whose all values

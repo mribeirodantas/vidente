@@ -2,8 +2,8 @@
 
 export(buildSEERParser)
 export(findSingleValueFeatures)
-export(histNA)
 export(listPrimarySites)
+export(plotHistNA)
 export(readSEER)
 export(removeFullNAFeatures)
 import(data.tree)
