@@ -2,44 +2,13 @@
 % Please edit documentation in R/getNormalizedEntropy.R
 \name{getNormalizedEntropy}
 \alias{getNormalizedEntropy}
-\title{Gets the normalized entropy for every feature in a data frame}
+\title{Gets the normalized entropy for features in a data frame}
 \usage{
 getNormalizedEntropy(dataframe)
 }
 \arguments{
-\item{dataframe}{The dataframe with SEER data}
-
-\item{summary}{If set to TRUE, the function will print a summary on the NA
-values apart from the histogram.}
-
-\item{additional_na}{A vector with additional symbol(s) that also should be
-considered NA. This is important for some datasets exported from SEER*Stat
-software that come with NA values and also strings 'Blank(s)' representing
-also lack of values.}
-
-\item{binwidth}{This parameter is automatically set by ggplot2. You can set
-it to a specific number if you want.}
+\item{dataframe}{The dataframe with SEER data.}
 }
 \description{
-Plots a histogram on the proportion of missing values (NA) for all the
-features in the SEER dataframe.
-}
-\examples{
-# First build parsing instructions
-\dontrun{
-instr <- buildSEERParser(file_path = 'read.seer.research.nov17.sas',
-                         file_source = 'download')
-
-# Now you can read it
-paths <- c('/home/yourusername/SEER/yr1973_2015.seer9/BREAST.TXT',
-          '/home/yourusername/SEER/yr2000_2015.ca_ky_lo_nj_ga/BREAST.TXT')
-
-# I'm interested here in patients with breast cancer diagnosed between 2012
-# and 2015
-seer_data <- readSEER(path = paths,
-                      instructions = instr,
-                      year_dx = c(2012:2015),
-                      primary_site = 'Breast')
-# Plot the histogram
-plotHistNA(seer_data, summary=TRUE)}
+Gets the normalized entropy for every feature in a data frame.
 }

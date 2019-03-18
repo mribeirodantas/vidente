@@ -1,7 +1,7 @@
-#' vidente: A package for parsing and analyzing SEER data.
+#' vidente: A package for parsing and preprocessing SEER data.
 #'
 #' The vidente package provides two categories of important functions.
-#' Functions to parse SEER data and functions to analyze it.
+#' Functions to parse SEER data and functions to preprocess it.
 #' 
 #' @section Parsing data:
 #'  The \link{buildSEERParser} function builds parsing instructions based on the
@@ -17,7 +17,7 @@
 #'  you know what primary sites you can provide as the primary_site parameter
 #'  for the readSEER function. 
 #'  
-#' @section Analyzing data:
+#' @section Preprocessing data:
 #'  The \link{plotHistNA} function plots a histogram of the proportion of NA
 #'  values for every feature in the dataframe.
 #'  
@@ -28,6 +28,11 @@
 #'  The \link{findSingleValueFeatures} function finds features with an unique
 #'  value for all rows in the dataframe. This can help you find features that
 #'  can be removed for they only add overhead to the analysis.
+#'
+#'  The \link{getNormalizedEntropy} function calculates the normalized entropy
+#'  by dividing the entropy by the information length (number of unique possible
+#'  values by feature). This ratio is also called metric entropy and is a measure
+#'  of randomness of the information.
 #'
 #' @docType package
 #' @name vidente

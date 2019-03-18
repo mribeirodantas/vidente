@@ -11,6 +11,7 @@ Depends: R (>= 3.1.0)
 Imports: dplyr,
   data.tree,
   ggplot2,
+  infotheo,
   readr,
   rlang,
   scales,
