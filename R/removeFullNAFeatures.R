@@ -1,4 +1,4 @@
-#' Remove full-NA value features in a SEER dataframe
+#' Removes full-NA value features in a SEER dataframe
 #' 
 #' Some features in a SEER dataframe are specific to certain types of cancer.
 #' If you're analyzing only patients with breast cancer, features that have

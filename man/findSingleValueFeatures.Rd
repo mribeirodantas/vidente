@@ -2,7 +2,7 @@
 % Please edit documentation in R/findSingleValueFeatures.R
 \name{findSingleValueFeatures}
 \alias{findSingleValueFeatures}
-\title{Find features with a single valeu for all rows}
+\title{Finds features with a single valeu for all rows}
 \usage{
 findSingleValueFeatures(dataframe)
 }

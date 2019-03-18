@@ -2,7 +2,7 @@
 % Please edit documentation in R/removeFullNAFeatures.R
 \name{removeFullNAFeatures}
 \alias{removeFullNAFeatures}
-\title{Remove full-NA value features in a SEER dataframe}
+\title{Removes full-NA value features in a SEER dataframe}
 \usage{
 removeFullNAFeatures(dataframe, additional_na)
 }

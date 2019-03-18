@@ -172,7 +172,7 @@ primarySiteLookUp <- function(site_name) {
   }
 }
 
-#' List cancers primary sites that are supported by this package
+#' Lists cancers primary sites that are supported by this package
 #' @return It displays on the screen the cancer primary sites supported by this
 #'   package.
 #' @seealso \url{https://seer.cancer.gov/siterecode/icdo3_dwhoheme/index.html}

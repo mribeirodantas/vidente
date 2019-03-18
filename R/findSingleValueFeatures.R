@@ -1,4 +1,4 @@
-#' Find features with a single valeu for all rows
+#' Finds features with a single valeu for all rows
 #'
 #' Some features may have the same value for all rows depending on the way you
 #' perform a subset. In these cases, this feature is not adding information to
