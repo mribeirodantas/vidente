@@ -1,12 +1,10 @@
 # vidente
 
-vidente is an R package that contains tools to parse and analyze the Surveillance, Epidemiology, and End Results (SEER) Program database.
-Though there are other R packages with similar goals, they're either too limited or too focused in one way of parsing/analyzing it.
-vidente has been developed making sure it will be useful to anyone willing to analyze SEER data, or at least parse its ASCII data files.
+vidente is an R package that contains tools to parse and preprocess the Surveillance, Epidemiology, and End Results (SEER) Program database. There are other R packages with similar goals, but they're either too limited or too focused in one way of parsing/preprocessing/analyzing SEER data. vidente has been developed to make sure it will be useful to anyone willing to analyze SEER data, regardless of technical knowledge.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. I do not consider it to be ready for production yet, even though I already use it in my analyses.
 
 ### Installing
 
